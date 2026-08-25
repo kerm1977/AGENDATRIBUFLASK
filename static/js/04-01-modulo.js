@@ -185,12 +185,26 @@ function renderInstruccionesAjustes() {
         cont.innerHTML = '<p class="text-muted small mb-0">No hay equipo configurado.</p>';
         return;
     }
-    cont.innerHTML = equipos.map((item, index) => `
-        <div class="d-flex justify-content-between align-items-center bg-light rounded px-2 py-1 mb-1">
-            <span class="small text-muted">${escapeHtml(item)}</span>
-            <button type="button" class="btn btn-sm text-danger" onclick="eliminarEquipoRequerido(${index})" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+    cont.innerHTML = equipos.map((item, index) => {
+        const texto = typeof item === 'string' ? item : (item.item || '');
+        const estado = typeof item === 'object' && item ? (item.estado || 'Si') : 'Si';
+        const checkedSi = estado === 'Si' ? 'checked' : '';
+        const checkedNo = estado === 'No' ? 'checked' : '';
+        const checkedOpc = estado === 'Opcional' ? 'checked' : '';
+        return `
+        <div class="d-flex flex-column bg-light rounded px-2 py-2 mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="small text-muted fw-medium">${escapeHtml(texto)}</span>
+                <button type="button" class="btn btn-sm text-danger" onclick="eliminarEquipoRequerido(${index})" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <div class="d-flex gap-3 mt-1">
+                <label class="small text-muted"><input type="radio" name="ajustes-equip_${index}" value="Si" class="form-check-input me-1" onchange="cambiarEstadoEquipoRequerido(${index}, 'Si')" ${checkedSi}> Sí</label>
+                <label class="small text-muted"><input type="radio" name="ajustes-equip_${index}" value="No" class="form-check-input me-1" onchange="cambiarEstadoEquipoRequerido(${index}, 'No')" ${checkedNo}> No</label>
+                <label class="small text-muted"><input type="radio" name="ajustes-equip_${index}" value="Opcional" class="form-check-input me-1" onchange="cambiarEstadoEquipoRequerido(${index}, 'Opcional')" ${checkedOpc}> Opcional</label>
+            </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 function guardarInstruccionesAjustes() {

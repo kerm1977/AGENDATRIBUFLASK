@@ -47,6 +47,7 @@ function guardarMembreteCotizador() {
 }
 
 function abrirCotizador() {
+    document.getElementById('cot-solicitud').value = '';
     document.getElementById('cot-personas').value = 1;
     document.getElementById('cot-dias').value = 1;
     document.getElementById('cot-fecha-unica').value = '';

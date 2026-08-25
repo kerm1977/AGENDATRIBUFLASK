@@ -10,11 +10,6 @@
 //        'search-directorio' filtra en cliente; en Flask mover lógica al
 //        backend o conservar búsqueda con JS sobre datos precargados.
 function initDirectorioView() {
-    // Refuerzo defensivo: asegurar que el botón flotante (+) quede oculto
-    // en esta vista sin importar cómo se llegó a ella.
-    const fabBtn = document.getElementById('main-fab');
-    if (fabBtn) fabBtn.style.display = 'none';
-
     const titulo = document.getElementById('titulo-view-directorio');
     const total = document.getElementById('directorio-total');
     if (titulo && total) {

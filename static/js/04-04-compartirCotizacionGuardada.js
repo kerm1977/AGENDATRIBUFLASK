@@ -4,17 +4,30 @@ function compartirCotizacionGuardada(id) {
     window.open(`https://wa.me/?text=${encodeURIComponent(cot.mensaje)}`, '_blank');
 }
 
+function cambiarEstadoEquipoRequerido(index, nuevoEstado) {
+    if (!configTema.equipoRequerido || !configTema.equipoRequerido[index]) return;
+    const eq = configTema.equipoRequerido[index];
+    if (typeof eq === 'string') {
+        configTema.equipoRequerido[index] = { item: eq, estado: nuevoEstado };
+    } else {
+        eq.estado = nuevoEstado;
+    }
+    saveData();
+    renderInstruccionesAjustes();
+}
+
 function agregarEquipoRequerido() {
     const input = document.getElementById('ajustes-nuevo-equipo');
     if (!input) return;
     const val = input.value.trim();
     if (!val) return;
-    if ((configTema.equipoRequerido || []).includes(val)) {
+    const existe = (configTema.equipoRequerido || []).some(e => (typeof e === 'object' ? e.item : e) === val);
+    if (existe) {
         showToast('Ese ítem ya existe', 'warning');
         return;
     }
     configTema.equipoRequerido = configTema.equipoRequerido || [];
-    configTema.equipoRequerido.push(val);
+    configTema.equipoRequerido.push({ item: val, estado: 'Si' });
     input.value = '';
     saveData();
     renderInstruccionesAjustes();
@@ -23,7 +36,8 @@ function agregarEquipoRequerido() {
 
 function eliminarEquipoRequerido(index) {
     if (!configTema.equipoRequerido || !configTema.equipoRequerido[index]) return;
-    const item = configTema.equipoRequerido[index];
+    const eq = configTema.equipoRequerido[index];
+    const item = typeof eq === 'object' ? eq.item : eq;
 
     showConfirm(
         `1/3 - Eliminar equipo`,

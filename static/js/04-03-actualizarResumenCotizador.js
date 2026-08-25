@@ -41,6 +41,7 @@ function actualizarResumenCotizador() {
 
 function generarMensajeCotizador(reqsParam = null) {
     const m = configTema.membreteCotizador || {};
+    const solicitud = document.getElementById('cot-solicitud')?.value?.trim() || '';
     const personas = document.getElementById('cot-personas').value || '1';
     const dias = Number(document.getElementById('cot-dias').value || 1);
     const reqs = reqsParam || cotRequerimientos;
@@ -87,6 +88,11 @@ function generarMensajeCotizador(reqsParam = null) {
     if (m.web) texto += `Web: ${m.web}\n`;
     if (m.telefono1 || m.telefono2 || m.facebook || m.web) texto += '\n';
 
+    if (solicitud) {
+        texto += `*Solicitud:* ${solicitud}\n`;
+        texto += `--------------------\n\n`;
+    }
+
     texto += `Saludos\n\n`;
     texto += `Solicitamos la siguiente información:\n\n`;
     texto += `Cantidad de personas: ${personas}\n`;
@@ -131,6 +137,7 @@ function guardarCotizacionActual() {
     }
     const dias = Number(document.getElementById('cot-dias').value || 1);
     const base = {
+        solicitud: document.getElementById('cot-solicitud')?.value?.trim() || '',
         personas: document.getElementById('cot-personas').value || '1',
         dias,
         fechaUnica: document.getElementById('cot-fecha-unica').value,
