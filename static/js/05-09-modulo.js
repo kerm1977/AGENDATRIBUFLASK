@@ -163,6 +163,5 @@ function renderCaminantes(filterText = "") {
 
     updateDeudaPorPersona();
     updateDineroARecoger();
-    updateFabState();
     renderAsistenciaCaminantes();
 }
