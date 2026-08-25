@@ -8,5 +8,6 @@ venv/
 .venv/
 .env
 *.sqlite
+!tribu.sqlite
 *.db
 .DS_Store
