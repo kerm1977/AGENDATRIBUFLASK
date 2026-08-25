@@ -4,30 +4,17 @@ function compartirCotizacionGuardada(id) {
     window.open(`https://wa.me/?text=${encodeURIComponent(cot.mensaje)}`, '_blank');
 }
 
-function cambiarEstadoEquipoRequerido(index, nuevoEstado) {
-    if (!configTema.equipoRequerido || !configTema.equipoRequerido[index]) return;
-    const eq = configTema.equipoRequerido[index];
-    if (typeof eq === 'string') {
-        configTema.equipoRequerido[index] = { item: eq, estado: nuevoEstado };
-    } else {
-        eq.estado = nuevoEstado;
-    }
-    saveData();
-    renderInstruccionesAjustes();
-}
-
 function agregarEquipoRequerido() {
     const input = document.getElementById('ajustes-nuevo-equipo');
     if (!input) return;
     const val = input.value.trim();
     if (!val) return;
-    const existe = (configTema.equipoRequerido || []).some(e => (typeof e === 'object' ? e.item : e) === val);
-    if (existe) {
+    if ((configTema.equipoRequerido || []).includes(val)) {
         showToast('Ese ítem ya existe', 'warning');
         return;
     }
     configTema.equipoRequerido = configTema.equipoRequerido || [];
-    configTema.equipoRequerido.push({ item: val, estado: 'Si' });
+    configTema.equipoRequerido.push(val);
     input.value = '';
     saveData();
     renderInstruccionesAjustes();

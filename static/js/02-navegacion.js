@@ -48,12 +48,33 @@ function navigate(viewName, title = null) {
         navBuseta.style.display = 'none';
     }
 
-    if(viewName === 'home') renderHome();
-    else if (viewName === 'caminata') {
-        // vista caminata renderizada desde 05-*.js
+    // Toggle FAB visibility and functionality
+    const fab = document.getElementById('main-fab');
+    if(viewName === 'home') {
+        if (fab) {
+            fab.style.display = 'flex';
+            fab.innerHTML = '<i class="fas fa-plus"></i>';
+            fab.onclick = createNewCaminata;
+            fab.disabled = false;
+        }
+        renderHome();
+    } else if (viewName === 'caminata') {
+        if (fab) fab.style.display = 'none';
+    } else if (viewName === 'precios') {
+        if (fab) fab.style.display = 'none';
+        renderPrecios();
+    } else if (viewName === 'notas') {
+        if (fab) {
+            fab.style.display = 'flex';
+            fab.innerHTML = '<i class="fas fa-plus"></i>';
+            fab.onclick = () => abrirEditorNota();
+            fab.disabled = false;
+        }
+    } else if (viewName === 'directorio') {
+        if (fab) fab.style.display = 'none';
+    } else {
+        if (fab) fab.style.display = 'none';
     }
-    else if (viewName === 'precios') renderPrecios();
-    else if (viewName === 'notas') { /* renderNotas() se llama arriba */ }
 
     currentView = viewName;
     window.scrollTo(0, 0);
