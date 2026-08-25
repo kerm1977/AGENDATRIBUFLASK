@@ -1,0 +1,69 @@
+                            <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                                <h2 class="accordion-header" id="headingDias">
+                                    <button class="accordion-button collapsed fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDias" aria-expanded="false" aria-controls="collapseDias">
+                                        Días, horas y lugares de salida
+                                    </button>
+                                </h2>
+                                <div id="collapseDias" class="accordion-collapse collapse" aria-labelledby="headingDias" data-bs-parent="#accordionCaminata">
+                                    <div class="accordion-body p-3">
+                        <!-- Fechas (Dinámicas) -->
+                        <div id="fecha-local-container" class="mb-3">
+                            <label class="form-label fw-bold required-field text-muted small">Fecha (Día, Mes, Año)</label>
+                            <input type="date" class="form-control" id="cam-fecha-local">
+                        </div>
+
+                        <div id="fecha-internacional-container" class="mb-3" style="display: none;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label fw-bold required-field text-muted small">Fecha Ida</label>
+                                    <input type="date" class="form-control" id="cam-fecha-ida">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-bold required-field text-muted small">Fecha Regreso</label>
+                                    <input type="date" class="form-control" id="cam-fecha-regreso">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-md-6" id="cam-hora-salida-container">
+                                <label class="form-label fw-bold text-muted small mb-1">Hora de Salida</label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="time" id="cam-hora-salida" class="form-control" onchange="updateTimePreview()">
+                                    <span id="cam-time-preview" class="small fw-bold text-warning-custom text-nowrap" style="min-width: 70px;"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6" id="cam-lugar-salida-container">
+                                <label class="form-label fw-bold text-muted small mb-1">Lugar de Salida</label>
+                                <select id="cam-lugar-salida" class="form-select">
+                                    <option value="">Seleccioná un lugar</option>
+                                    <option>Parque de Tres Ríos - Escuela</option>
+                                    <option>Parque de Tres Ríos - Cruz Roja</option>
+                                    <option>Parque de Tres Ríos - Letras</option>
+                                    <option>Cada quien llega por sus propios medios</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" id="cam-lugares-recoger-container">
+                            <label class="form-label fw-bold text-muted small mb-1">Lugares para recoger</label>
+                            <input type="text" id="cam-lugares-recoger" class="form-control" placeholder="Ej: Tres Ríos, Curridabat, San Pedro">
+                            <div class="form-text text-muted small" style="font-size: 0.7rem;">Separá cada lugar con comas.</div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label fw-bold required-field text-muted small mb-1">Monto Reserva</label>
+                                <div class="input-group">
+                                    <span class="input-group-text currency-symbol">₡</span>
+                                    <input type="number" class="form-control" id="cam-reserva-monto" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label fw-bold required-field text-muted small mb-1">Fecha límite de reserva</label>
+                                <input type="date" class="form-control" id="cam-reserva-fecha" required>
+                            </div>
+                        </div>
+                                    </div>
+                                </div>
+                            </div>

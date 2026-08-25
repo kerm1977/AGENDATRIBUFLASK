@@ -1,0 +1,94 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-estadisticas">
+                            <i class="fas fa-chart-pie text-primary me-2"></i> Estadísticas del Sitio
+                        </button>
+                    </h2>
+                    <div id="acc-estadisticas" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <div class="row g-2 text-center">
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5" id="stat-listas-activas">0</div>
+                                        <div class="small text-muted">Listas activas</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5" id="stat-contactos">0</div>
+                                        <div class="small text-muted">Contactos en el directorio</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5" id="stat-notas">0</div>
+                                        <div class="small text-muted">Notas</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5 text-success" id="stat-personas-participaron">0</div>
+                                        <div class="small text-muted">Personas que han participado</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5 text-danger" id="stat-personas-retiradas">0</div>
+                                        <div class="small text-muted">Personas que se han retirado</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5" id="stat-total-buseta">₡0</div>
+                                        <div class="small text-muted">Total en precios de buseta</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5 text-success" id="stat-asistencia-participaron">0</div>
+                                        <div class="small text-muted">Asistencias: participaron</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded h-100">
+                                        <div class="fw-bold fs-5 text-danger" id="stat-asistencia-no-participaron">0</div>
+                                        <div class="small text-muted">Asistencias: no participaron</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            <div class="small text-muted mb-2" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px;">
+                                <i class="fas fa-chart-bar"></i> Caminatas y participantes por actividad
+                            </div>
+                            <div class="d-flex gap-2 mb-2">
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="exportarEstadisticasWhatsApp()" title="Exportar a WhatsApp">
+                                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="exportarEstadisticasTXT()" title="Exportar a TXT">
+                                    <i class="fas fa-file-alt me-1"></i> TXT
+                                </button>
+                            </div>
+                            <div class="accordion mb-3" id="stat-por-actividad-accordion">
+                                <div id="stat-por-actividad">
+                                    <p class="text-muted small text-center my-3 mb-0">Sin caminatas registradas.</p>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            <div class="d-flex justify-content-between align-items-center border rounded p-3 bg-light">
+                                <div>
+                                    <div class="small text-muted" style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.5px;">
+                                        <i class="fas fa-user-clock"></i> Inactivos 8 meses o más
+                                    </div>
+                                    <div class="fw-bold fs-4" id="stat-inactivos-count">0</div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success" onclick="enviarMensajeInactivosWhatsApp()" title="Enviar mensaje de motivación por WhatsApp">
+                                    <i class="fab fa-whatsapp me-1"></i> Enviar mensaje
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>

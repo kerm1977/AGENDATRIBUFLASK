@@ -1,0 +1,197 @@
+    <div class="modal fade" id="modalCaminante" tabindex="-1" aria-labelledby="modalCaminanteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCaminanteLabel">Agregar Caminante</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-caminante">
+                        <input type="hidden" id="caminante-id">
+
+                        <!-- Base de Datos Global de Personas (Sugerencia) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">Buscar existente o crear nuevo</label>
+                            <input type="text" class="form-control" id="cam-usu-nombre" required 
+                                   placeholder="Nombre y Apellidos" autocomplete="off"
+                                   oninput="formatNameAndSearch(this)">
+                            <!-- Dropdown de sugerencias -->
+                            <ul class="list-group position-absolute w-100 shadow-sm mt-1" id="suggestions-list" style="z-index: 1050; display:none; max-height: 150px; overflow-y: auto;">
+                                <!-- Sugerencias -->
+                            </ul>
+                            <div class="form-text text-danger" id="name-error" style="display:none; font-size:0.7rem;">Solo se permiten letras y espacios.</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-7 mb-3">
+                                <label class="form-label fw-bold small text-muted">Estado del pago</label>
+                                <select class="form-select" id="cam-usu-estado" required onchange="checkAbonoByEstado()">
+                                    <option value="pendiente">🔴 Pendiente</option>
+                                    <option value="reservado">🟡 Reservado</option>
+                                    <option value="reserva-parcial">🔵 Reserva Parcial</option>
+                                    <option value="pago-parcial">🟣 Pago Parcial</option>
+                                    <option value="cancelado">🟢 Cancelado (Pagado)</option>
+                                    <option value="abono">🟠 Abono</option>
+                                </select>
+                            </div>
+                            <div class="col-5 mb-3">
+                                <label class="form-label fw-bold small text-muted">Abonos</label>
+                                <select class="form-select" id="cam-usu-abonos" onchange="checkEstadoAbono()">
+                                    <option value="">Ninguno</option>
+                                    <option value="R">R (Reserva)</option>
+                                    <option value="Ab+1">Ab+1</option>
+                                    <option value="Ab+2">Ab+2</option>
+                                    <option value="Ab+3">Ab+3</option>
+                                    <option value="Ab+4">Ab+4</option>
+                                    <option value="Ab+5">Ab+5</option>
+                                    <option value="Ab+6">Ab+6</option>
+                                    <option value="Ab+7">Ab+7</option>
+                                    <option value="Ab+8">Ab+8</option>
+                                    <option value="Ab+9">Ab+9</option>
+                                    <option value="Ab+10">Ab+10</option>
+                                    <option value="Ab+11">Ab+11</option>
+                                    <option value="Ab+12">Ab+12</option>
+                                    <option value="Ab+13">Ab+13</option>
+                                    <option value="Ab+14">Ab+14</option>
+                                    <option value="Ab+15">Ab+15</option>
+                                    <option value="Ab+16">Ab+16</option>
+                                    <option value="Ab+17">Ab+17</option>
+                                    <option value="Ab+18">Ab+18</option>
+                                    <option value="Ab+19">Ab+19</option>
+                                    <option value="Ab+20">Ab+20</option>
+                                    <option value="Ab+21">Ab+21</option>
+                                    <option value="Ab+22">Ab+22</option>
+                                    <option value="Ab+23">Ab+23</option>
+                                    <option value="Ab+24">Ab+24</option>
+                                    <option value="Ab+25">Ab+25</option>
+                                    <option value="Ab+26">Ab+26</option>
+                                    <option value="Ab+27">Ab+27</option>
+                                    <option value="Ab+28">Ab+28</option>
+                                    <option value="Ab+29">Ab+29</option>
+                                    <option value="Ab+30">Ab+30</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">Monto cancelado hasta el momento</label>
+                            <input type="number" class="form-control" id="cam-usu-monto-cancelado" inputmode="numeric" placeholder="Total entregado" oninput="calcularMontosDivididos()">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">Aplicar pago a</label>
+                            <select class="form-select" id="cam-usu-pago-destino" onchange="togglePagoDestino()">
+                                <option value="este">Este caminante (100%)</option>
+                                <option value="otro">Otro caminante (100%)</option>
+                                <option value="mitad">50% este / 50% otro</option>
+                                <option value="personalizado">Personalizado</option>
+                            </select>
+                        </div>
+
+                        <div id="cam-usu-otro-container" class="d-none mb-3">
+                            <label class="form-label small text-muted">Caminante destino</label>
+                            <select class="form-select" id="cam-usu-otro-caminante"></select>
+                        </div>
+
+                        <div id="cam-usu-montos-personalizado" class="d-none">
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Monto para este caminante</label>
+                                <input type="number" class="form-control" id="cam-usu-monto-actual" inputmode="numeric" oninput="calcularMontoOtro()">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Monto para otro caminante</label>
+                                <input type="number" class="form-control" id="cam-usu-monto-otro" inputmode="numeric" oninput="calcularMontoActual()">
+                            </div>
+                        </div>
+
+                        <!-- Editor de Nota Enriquecido -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-end mb-1">
+                                <label class="form-label fw-bold small text-muted mb-0">Nota / Detalle (Opcional)</label>
+                            </div>
+
+                            <div class="editor-toolbar bg-light border p-1 d-flex gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('bold')" title="Negrita"><i class="fas fa-bold"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('insertUnorderedList')" title="Lista con viñetas"><i class="fas fa-list-ul"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('insertOrderedList')" title="Lista numerada"><i class="fas fa-list-ol"></i></button>
+                                <div class="vr mx-1"></div>
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('justifyLeft')" title="Alinear a la Izquierda"><i class="fas fa-align-left"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('justifyCenter')" title="Centrar"><i class="fas fa-align-center"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary border-0" onclick="formatDoc('justifyRight')" title="Alinear a la Derecha"><i class="fas fa-align-right"></i></button>
+                            </div>
+                            <div id="cam-usu-nota" class="form-control editor-content" contenteditable="true" data-placeholder="No coloques precios aquí, colócalos dentro de Monto cancelado hasta el momento..."></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseExportConfig" style="cursor: pointer;">
+                                <label class="form-label fw-bold small text-muted mb-0">Configuración de exportación</label>
+                                <i class="fas fa-chevron-down text-muted small"></i>
+                            </div>
+                            <div id="collapseExportConfig" class="collapse">
+                                <div class="form-check form-switch mt-2 mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-nota-publica" onchange="handleNotaPublicaToggle(this)">
+                                    <label class="form-check-label small text-muted" for="cam-usu-nota-publica" style="font-size: 0.75rem;">Mostrar en mensaje Nota / Detalle (Opcional)</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-desc-reversion">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-desc-reversion" style="font-size: 0.75rem;">Mostrar en exportaciones descripciones de reversiones</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-desc-pago">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-desc-pago" style="font-size: 0.75rem;">Mostrar en exportaciones descripciones de montos</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-reversiones">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-reversiones" style="font-size: 0.75rem;">Mostrar reversiones en exportaciones</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-pagos-activos">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-pagos-activos" style="font-size: 0.75rem;">Mostrar pagos activos en exportaciones</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-total-lista">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-total-lista" style="font-size: 0.75rem;">Mostrar total recogido en lista de caminantes</label>
+                                </div>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-mostrar-saldo-pendiente">
+                                    <label class="form-check-label small text-muted" for="cam-usu-mostrar-saldo-pendiente" style="font-size: 0.75rem;">Mostrar saldo pendiente en lista de caminantes</label>
+                                </div>
+                                <div class="form-check form-switch mb-0" onchange="toggleDolarizar()">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="cam-usu-dolarizar">
+                                    <label class="form-check-label small text-muted" for="cam-usu-dolarizar" style="font-size: 0.75rem;">Dolarizar todos los precios</label>
+                                </div>
+                                <div id="dolarizar-tipo-cambio" class="d-none mt-1">
+                                    <input type="number" class="form-control form-control-sm" id="cam-usu-tipo-cambio-dolar" inputmode="numeric" placeholder="Tipo de cambio (₡ por $1)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseHistorial" style="cursor: pointer;">
+                                <label class="form-label fw-bold small text-muted mb-0">Historial de pagos</label>
+                                <i class="fas fa-chevron-down text-muted small"></i>
+                            </div>
+                            <div id="collapseHistorial" class="collapse">
+                                <div id="historial-montos" class="d-flex flex-column gap-2 align-items-start mt-2"></div>
+                                <p class="form-label fw-bold small text-muted mb-0 mt-2" id="cam-usu-total-recogido">Total recogido hasta el momento: ₡0</p>
+                            </div>
+                        </div>
+
+                        <!-- Opciones Adicionales de Edición -->
+                        <div id="opciones-caminante" class="d-none mt-2">
+                            <hr class="text-muted mb-3">
+                            <button type="button" class="btn btn-outline-danger w-100" id="btn-delete-caminante" onclick="confirmarBorradoCaminante()">
+                                <i class="fas fa-user-minus"></i> Retirar de la lista
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" style="background-color: #25D366; border-color: #25D366;" onclick="compartirWhatsAppCaminante()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    <button type="button" class="btn btn-primary" onclick="generarFactura()"><i class="fas fa-file-invoice"></i> Factura</button>
+                    <button type="button" class="btn btn-success" style="background-color: var(--primary-dark);" onclick="saveCaminante()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>

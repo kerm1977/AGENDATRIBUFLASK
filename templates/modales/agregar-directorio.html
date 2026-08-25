@@ -1,0 +1,199 @@
+    <div class="modal fade" id="modalAgregarDirectorio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title" id="agregar-directorio-titulo">Agregar Persona</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <input type="hidden" id="directorio-editar-id">
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Nombre completo</label>
+                        <input type="text" class="form-control form-control-sm" id="directorio-nombre" placeholder="Ej: María Pérez" oninput="soloLetrasInput(this)">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Grupo / Tipo</label>
+                        <select class="form-select form-select-sm" id="directorio-tipo" onchange="toggleCamposDirectorioPorTipo()">
+                            <!-- Opciones generadas por JS para incluir los grupos personalizados del usuario -->
+                        </select>
+                    </div>
+
+                    <div class="mb-3 d-none" id="directorio-campo-pais">
+                        <label class="form-label small text-muted">País</label>
+                        <select class="form-select form-select-sm" id="directorio-pais" onchange="toggleCamposDirectorioPorTipo()">
+                            <option value="Costa Rica" selected>Costa Rica</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Panamá">Panamá</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="México">México</option>
+                            <option value="Perú">Perú</option>
+                            <option value="España">España</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-none" id="directorio-campo-lugar">
+                        <label class="form-label small text-muted">Lugar (provincia)</label>
+                        <select class="form-select form-select-sm" id="directorio-lugar">
+                            <option value="" selected>—</option>
+                            <option value="San José">San José</option>
+                            <option value="Cartago">Cartago</option>
+                            <option value="Alajuela">Alajuela</option>
+                            <option value="Heredia">Heredia</option>
+                            <option value="Guanacaste">Guanacaste</option>
+                            <option value="Limón">Limón</option>
+                            <option value="Puntarenas">Puntarenas</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-none" id="directorio-campo-lugar-texto">
+                        <label class="form-label small text-muted">Lugar, departamento, provincia</label>
+                        <input type="text" class="form-control form-control-sm" id="directorio-lugar-texto" placeholder="Ej: Departamento de Antioquia, Medellín">
+                    </div>
+
+                    <!-- Campos comunes: teléfono principal y correo -->
+                    <div class="mb-3">
+                        <label class="form-label small text-muted" id="directorio-telefono-label">Teléfono</label>
+                        <input type="text" class="form-control form-control-sm" id="directorio-telefono" placeholder="Ej: 88888888" inputmode="numeric" oninput="soloNumerosInput(this)">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Correo electrónico</label>
+                        <input type="email" class="form-control form-control-sm" id="directorio-correo" placeholder="Ej: correo@ejemplo.com" oninput="soloMinusculasInput(this)">
+                    </div>
+
+                    <!-- Campos solo para personas -->
+                    <div id="directorio-campos-persona">
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Número de cédula</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-cedula" placeholder="Ej: 123456789">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Número de pasaporte</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-pasaporte" placeholder="Ej: AB123456">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Fecha de nacimiento</label>
+                            <input type="date" class="form-control form-control-sm" id="directorio-nacimiento">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Tipo de sangre</label>
+                            <select class="form-select form-select-sm" id="directorio-tipo-sangre">
+                                <option value="" selected>—</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="No recibe transfusiones">No recibe transfusiones</option>
+                                <option value="No sabe">No sabe el tipo de sangre</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Nombre de contacto de emergencia</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-contacto-emergencia-nombre" placeholder="Ej: Ana Pérez" oninput="soloLetrasInput(this)">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Teléfono de emergencia</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-telefono-emergencia" placeholder="Ej: 88888888" inputmode="numeric" oninput="soloNumerosInput(this)">
+                        </div>
+                    </div>
+
+                    <!-- Campos exclusivos de El Camino de Costa Rica -->
+                    <div id="directorio-campos-camino" class="d-none">
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Etapa</label>
+                            <select class="form-select form-select-sm" id="directorio-etapa">
+                                <option value="" selected>—</option>
+                                <option value="Etapas 1A y 1B">Etapas 1A y 1B</option>
+                                <option value="Etapa 2">Etapa 2</option>
+                                <option value="Etapas 3 y 4">Etapas 3 y 4</option>
+                                <option value="Etapa 5">Etapa 5</option>
+                                <option value="Etapa 6">Etapa 6</option>
+                                <option value="Etapa 7">Etapa 7</option>
+                                <option value="Etapa 8">Etapa 8</option>
+                                <option value="Etapa 9">Etapa 9</option>
+                                <option value="Etapa 10">Etapa 10</option>
+                                <option value="Etapa 11">Etapa 11</option>
+                                <option value="Etapa 12">Etapa 12</option>
+                                <option value="Etapa 13">Etapa 13</option>
+                                <option value="Etapas 14 y 15">Etapas 14 y 15</option>
+                                <option value="Etapa 16">Etapa 16</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Nombre de contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-nombre-contacto" placeholder="Ej: Encargado de la etapa">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Nombre del lugar</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-lugar-camino" placeholder="Ej: Punto de partida, albergue">
+                        </div>
+                    </div>
+
+                    <!-- Campos para lugares y organizaciones (no personas) -->
+                    <div id="directorio-campos-lugar" class="d-none">
+                        <div class="row gx-2">
+                            <div class="col-6 mb-3">
+                                <label class="form-label small text-muted">Teléfono 2</label>
+                                <input type="text" class="form-control form-control-sm" id="directorio-telefono2" placeholder="Ej: 88888888" inputmode="numeric" oninput="soloNumerosInput(this)">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label small text-muted">Teléfono 3</label>
+                                <input type="text" class="form-control form-control-sm" id="directorio-telefono3" placeholder="Ej: 88888888" inputmode="numeric" oninput="soloNumerosInput(this)">
+                            </div>
+                        </div>
+                        <div class="mb-3" id="directorio-campos-contacto-entidad">
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Nombre de contacto</label>
+                                <input type="text" class="form-control form-control-sm" id="directorio-nombre-contacto" placeholder="Ej: Recepción, Encargado de reservas">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Teléfono de contacto</label>
+                                <input type="text" class="form-control form-control-sm" id="directorio-telefono-contacto" placeholder="Ej: 88888888" inputmode="numeric" oninput="soloNumerosInput(this)">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">
+                                <i class="fas fa-map-marked-alt me-1"></i>URL de Google Maps
+                            </label>
+                            <input type="url" class="form-control form-control-sm" id="directorio-url-mapa" placeholder="https://maps.app.goo.gl/... o enlace de recorrido">
+                            <div class="form-text small" style="font-size:0.7rem;">
+                                Indicá el punto donde nos recogen (A) y el punto donde nos dejan (B).
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Horario de atención</label>
+                            <input type="text" class="form-control form-control-sm" id="directorio-horario" placeholder="Ej: Lun-Dom 8:00 a 17:00">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Descripción del terreno</label>
+                            <div class="d-flex flex-wrap gap-2" id="directorio-terreno-botones">
+                                <button type="button" class="btn btn-sm btn-outline-secondary terreno-btn" data-value="Lastrado" onclick="toggleTerrenoDirectorio(this)">Lastrado</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary terreno-btn" data-value="Pavimento" onclick="toggleTerrenoDirectorio(this)">Pavimento</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary terreno-btn" data-value="Sendero" onclick="toggleTerrenoDirectorio(this)">Sendero</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary terreno-btn" data-value="Trillo" onclick="toggleTerrenoDirectorio(this)">Trillo</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Precio de ingreso por persona</label>
+                            <input type="number" class="form-control form-control-sm" id="directorio-precio" placeholder="Ej: 3500" min="0" step="100">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Notas adicionales</label>
+                        <textarea class="form-control form-control-sm" id="directorio-notas" rows="2" placeholder="Ej: Alergias, contacto de emergencia..."></textarea>
+                    </div>
+                </div>
+                <div id="directorio-exportar" class="d-none flex-column gap-2 px-3 pb-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm w-100" onclick="descargarTarjetaDirectorio()" title="Descargar tarjeta PNG"><i class="fas fa-id-card"></i> Descargar tarjeta</button>
+                </div>
+                <div class="modal-footer border-0 pt-0 d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="guardarPersonaDirectorio()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>

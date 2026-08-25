@@ -1,0 +1,24 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-notas">
+                            <i class="fas fa-sticky-note text-primary me-2"></i> Notas
+                        </button>
+                    </h2>
+                    <div id="acc-notas" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Exportar, importar o respaldar solo las notas.</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="exportarNotasJSON()">
+                                    <i class="fas fa-file-export"></i> Exportar Notas (JSON)
+                                </button>
+                                <button class="btn btn-outline-success" onclick="exportarNotasWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> Exportar Notas a WhatsApp
+                                </button>
+                                <label class="btn btn-outline-secondary mb-0">
+                                    <i class="fas fa-file-import"></i> Importar Notas
+                                    <input type="file" accept=".json" style="display: none;" onchange="importarNotasJSON(event)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>

@@ -1,0 +1,18 @@
+    <div class="modal fade" id="modalReversion" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title">Descripción de reversión</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <label class="form-label small text-muted">¿Por qué se reversa este monto?</label>
+                    <textarea id="reversion-descripcion" class="form-control" rows="3" placeholder="Ej: Devolución por cancelación..."></textarea>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmarReversion()">Reversar</button>
+                </div>
+            </div>
+        </div>
+    </div>

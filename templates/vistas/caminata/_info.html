@@ -1,0 +1,112 @@
+                            <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                                <h2 class="accordion-header" id="headingInfo">
+                                    <button class="accordion-button fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                                        Información de la caminata
+                                    </button>
+                                </h2>
+                                <div id="collapseInfo" class="accordion-collapse collapse show" aria-labelledby="headingInfo" data-bs-parent="#accordionCaminata">
+                                    <div class="accordion-body p-3">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted small">Actividad</label>
+                                <select class="form-select bg-light" id="cam-actividad" required onchange="toggleActividadCaminata()">
+                                    <option value="Caminata" selected>Caminata</option>
+                                    <option value="Internacional">Internacional</option>
+                                    <option value="Parque Nacional">Parque Nacional</option>
+                                    <option value="El Camino de Costa Rica">El Camino de Costa Rica</option>
+                                    <option value="Fiesta">Fiesta</option>
+                                    <option value="Convivio">Convivio</option>
+                                    <option value="Reunión">Reunión</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 d-none" id="cam-etapa-container">
+                                <label class="form-label fw-bold required-field text-muted small">Número de Etapa</label>
+                                <select class="form-select" id="cam-etapa" onchange="asignarNombreDesdeEtapa()">
+                                    <option value="" selected>Seleccioná una etapa</option>
+                                    <option value="Etapa 1A">Etapa 1A</option>
+                                    <option value="Etapas 1A y B">Etapas 1A y B</option>
+                                    <option value="Etapa 2">Etapa 2</option>
+                                    <option value="Etapa 3 y 4">Etapa 3 y 4</option>
+                                    <option value="Etapa 5">Etapa 5</option>
+                                    <option value="Etapa 6">Etapa 6</option>
+                                    <option value="Etapa 7">Etapa 7</option>
+                                    <option value="Etapa 8">Etapa 8</option>
+                                    <option value="Etapa 9">Etapa 9</option>
+                                    <option value="Etapa 10">Etapa 10</option>
+                                    <option value="Etapa 11">Etapa 11</option>
+                                    <option value="Etapa 12">Etapa 12</option>
+                                    <option value="Etapa 13">Etapa 13</option>
+                                    <option value="Etapas 13 y 14">Etapas 13 y 14</option>
+                                    <option value="Etapa 14">Etapa 14</option>
+                                    <option value="Etapa 15">Etapa 15</option>
+                                    <option value="Etapa 16 (Final)">Etapa 16 (Final)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 d-none" id="cam-parque-container">
+                                <label class="form-label fw-bold required-field text-muted small">Parque Nacional</label>
+                                <select class="form-select" id="cam-parque" onchange="asignarNombreDesdeParque()">
+                                    <option value="" selected>Seleccioná un parque</option>
+                                    <!-- Opciones de parques se inyectan por JS -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3" id="cam-nombre-container">
+                                <label id="cam-nombre-label" class="form-label fw-bold required-field text-muted small">Nombre de La Caminata</label>
+                                <input type="text" class="form-control fw-bold" id="cam-nombre" list="sug-caminatas" oninput="this.value = toTitleCase(this.value); cargarSugerenciaCaminata(this)" required placeholder="Ej: Volcán Arenal">
+                                <datalist id="sug-caminatas"></datalist>
+                            </div>
+
+                            <div class="mb-3" id="cam-ubicacion-container">
+                                <label id="cam-ubicacion-label" class="form-label fw-bold text-muted small">Provincia</label>
+                                <select class="form-select" id="cam-provincia" onchange="document.getElementById('cam-pais').value = this.value">
+                                    <option value="">Seleccioná una provincia</option>
+                                    <option value="San José">San José</option>
+                                    <option value="Cartago">Cartago</option>
+                                    <option value="Alajuela">Alajuela</option>
+                                    <option value="Heredia">Heredia</option>
+                                    <option value="Guanacaste">Guanacaste</option>
+                                    <option value="Puntarenas">Puntarenas</option>
+                                    <option value="Limón">Limón</option>
+                                </select>
+                                <select class="form-select d-none" id="cam-pais" onchange="document.getElementById('cam-provincia').value = this.value; togglePaisCaminata();">
+                                    <option value="">Seleccioná un país</option>
+                                    <option value="Guatemala">Guatemala</option>
+                                    <option value="Belice">Belice</option>
+                                    <option value="El Salvador">El Salvador</option>
+                                    <option value="Honduras">Honduras</option>
+                                    <option value="Nicaragua">Nicaragua</option>
+                                    <option value="Panamá">Panamá</option>
+                                    <option value="España">España</option>
+                                    <option value="Perú">Perú</option>
+                                    <option value="México">México</option>
+                                    <option value="Estados Unidos">Estados Unidos</option>
+                                    <option value="Colombia">Colombia</option>
+                                    <option value="Ecuador">Ecuador</option>
+                                    <option value="Argentina">Argentina</option>
+                                </select>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-bold text-muted small">Dificultad</label>
+                                    <select class="form-select" id="cam-dificultad">
+                                        <option value="">Seleccioná dificultad</option>
+                                        <option value="Fácil">Fácil</option>
+                                        <option value="Moderada">Moderada</option>
+                                        <option value="Difícil">Difícil</option>
+                                        <option value="Muy difícil">Muy difícil</option>
+                                        <option value="Extrema">Extrema</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-bold text-muted small">Kilómetros</label>
+                                    <input type="number" class="form-control" id="cam-kilometros" placeholder="Ej: 12.5" step="0.1" inputmode="decimal" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')">
+                                </div>
+                            </div>
+
+                                    </div>
+                                </div>
+                            </div>

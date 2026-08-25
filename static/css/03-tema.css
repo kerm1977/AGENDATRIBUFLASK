@@ -1,0 +1,86 @@
+/* AGENDATRIBUPRO - Acordeon de ajustes, selector de color y tema oscuro
+   Origen: AGENDATRIBUPRO.original.html lineas 269-350
+   Extraido sin cambios de codigo (solo se quito la sangria de 8 espacios).
+   No editar sin actualizar el original. */
+/* Acordeón de Ajustes: mismo color del tema de la app */
+#ajustes-accordion .accordion-button:not(.collapsed) {
+    background-color: #fff7ed;
+    color: var(--primary-dark);
+    box-shadow: none;
+}
+#ajustes-accordion .accordion-button:focus {
+    box-shadow: none;
+}
+
+/* Selector de color de tema (Ajustes) */
+.tema-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.tema-swatch.activo {
+    border-color: #111b21;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111b21;
+}
+
+/* Tema Oscuro: fondos oscuros, íconos y texto en blanco */
+body.tema-oscuro {
+    background-color: #111827;
+    color: #f3f4f6;
+}
+body.tema-oscuro .bottom-nav {
+    background-color: #1f2937;
+    border-top-color: #374151;
+}
+body.tema-oscuro .nav-item {
+    color: #d1d5db;
+}
+body.tema-oscuro .card,
+body.tema-oscuro .modal-content,
+body.tema-oscuro .list-group-item,
+body.tema-oscuro .accordion-item,
+body.tema-oscuro .accordion-body {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}
+body.tema-oscuro .accordion-button {
+    background-color: #1f2937;
+    color: #f3f4f6;
+}
+body.tema-oscuro .text-dark,
+body.tema-oscuro .fw-medium,
+body.tema-oscuro .fw-bold,
+body.tema-oscuro h4, body.tema-oscuro h5, body.tema-oscuro h6 {
+    color: #f3f4f6 !important;
+}
+body.tema-oscuro .text-muted {
+    color: #9ca3af !important;
+}
+body.tema-oscuro input,
+body.tema-oscuro select,
+body.tema-oscuro textarea,
+body.tema-oscuro .form-control,
+body.tema-oscuro .form-select {
+    background-color: #374151;
+    color: #f3f4f6;
+    border-color: #4b5563;
+}
+body.tema-oscuro .form-control::placeholder {
+    color: #9ca3af;
+}
+body.tema-oscuro .btn-light {
+    background-color: #374151;
+    color: #f3f4f6;
+    border-color: #4b5563;
+}
+body.tema-oscuro .directorio-tipo-icon {
+    background-color: #374151 !important;
+}
+

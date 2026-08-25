@@ -1,0 +1,51 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-cotizador">
+                            <i class="fas fa-calculator text-primary me-2"></i> Cotizador
+                        </button>
+                    </h2>
+                    <div id="acc-cotizador" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small mb-2">Membrete del cotizador. Podés modificarlo y se usará al exportar a WhatsApp o TXT.</p>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Teléfono 1</label>
+                                <input type="text" id="ajustes-cot-telefono1" class="form-control form-control-sm" onchange="guardarMembreteCotizador()">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Teléfono 2</label>
+                                <input type="text" id="ajustes-cot-telefono2" class="form-control form-control-sm" onchange="guardarMembreteCotizador()">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Facebook</label>
+                                <input type="text" id="ajustes-cot-facebook" class="form-control form-control-sm" onchange="guardarMembreteCotizador()">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Web</label>
+                                <input type="text" id="ajustes-cot-web" class="form-control form-control-sm" onchange="guardarMembreteCotizador()">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Frase de precio</label>
+                                <textarea id="ajustes-cot-precio" class="form-control form-control-sm" rows="2" onchange="guardarMembreteCotizador()"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Frase de horario/contacto</label>
+                                <textarea id="ajustes-cot-horario" class="form-control form-control-sm" rows="2" onchange="guardarMembreteCotizador()"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Frase de baños</label>
+                                <textarea id="ajustes-cot-banos" class="form-control form-control-sm" rows="2" onchange="guardarMembreteCotizador()"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small text-muted">Frase de cortesía</label>
+                                <textarea id="ajustes-cot-cortesia" class="form-control form-control-sm" rows="2" onchange="guardarMembreteCotizador()"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-muted">Frase de cierre</label>
+                                <textarea id="ajustes-cot-cierre" class="form-control form-control-sm" rows="2" onchange="guardarMembreteCotizador()"></textarea>
+                            </div>
+                            <button class="btn btn-sm w-100" style="background-color: var(--primary-dark); color: white;" onclick="abrirCotizador()">
+                                <i class="fas fa-calculator me-1"></i> Abrir Cotizador
+                            </button>
+                        </div>
+                    </div>
+                </div>

@@ -1,0 +1,87 @@
+        /*
+         * =============================================================
+         *  ATENCIÓN: CÓDIGO PROTEGIDO / BLOQUEADO PARA EDICIÓN
+         * =============================================================
+         *  Las secciones listadas a continuación están blindadas.
+         *  NO modificar el código interno a menos que sea un dato
+         *  explícitamente requerido para el editor de video.
+         *
+         *  MÓDULOS PROTEGIDOS:
+         *  - LISTAS (caminatas, caminantes, pagos, reversiones)
+         *  - DIRECTORIO (personas, grupos)
+         *  - NOTAS (contenido, recordatorios)
+         *  - PRECIOS DE BUSETA
+         *  - AJUSTES / CONFIGURACIÓN
+         *  - RESPALDO / IMPORTACIÓN / EXPORTACIÓN
+         *  - ORACIÓN DE LA TRIBU
+         *  - UTILIDADES (WhatsApp, fechas, formateo)
+         *
+         *  Se han agregado marcadores // === BLOQUE MODULAR ... ===
+         *  para que más adelante cada bloque pueda extraerse a un
+         *  módulo independiente sin afectar fórmulas ni funcionalidad.
+         * =============================================================
+         */
+
+        /*
+         * =============================================================
+         *  GUÍA DE MIGRACIÓN A FLASK / MINIMÓDULOS
+         * =============================================================
+         *
+         *  ADVERTENCIA CRÍTICA: Al convertir este monolito a Flask con
+         *  módulos de ~200 líneas, prestar atención a los siguientes
+         *  puntos para evitar pérdida de funcionalidad:
+         *
+         *  1. VARIABLES GLOBALES: Las variables 'let' declaradas más abajo
+         *     son el estado compartido de toda la app. En Flask deben
+         *     convertirse en modelos SQLAlchemy o sesión global. Cualquier
+         *     módulo que las use requiere importar el state.py central.
+         *
+         *  2. FUNCIONES EXPUESTAS EN window: Los atributos onclick en HTML
+         *     llaman funciones por nombre global. Si el módulo JS no exporta
+         *     la función a window.NombreFuncion = NombreFuncion, el HTML falla.
+         *     Lista de funciones críticas con onclick: navigate, createNewCaminata,
+         *     openCaminata, confirmarBorradoCaminata, marcarAsistencia,
+         *     filtrarCaminatas, cambiarPaginaCaminatas, renderHome,
+         *     filterDirectorio, agregarFormaPago, eliminarFormaPago,
+         *     exportarEstadisticasWhatsApp, descargarTarjetaCuentasPNG, etc.
+         *
+         *  3. MODALES DE BOOTSTRAP: Las instancias (modalCaminante, modalVerDirectorio,
+         *     modalHistorialRetiros, etc.) se inicializan en DOMContentLoaded.
+         *     En Flask con Jinja2 esto debe moverse a un main.js que se cargue
+         *     después de todos los módulos y plantillas.
+         *
+         *  4. RENDERIZADO DINÁMICO: Funciones como renderHome(), renderDirectorioList(),
+         *     actualizarEstadisticasSitio(), etc., generan HTML con innerHTML.
+         *     En Flask conviene reemplazar por Jinja2 templates parciales (HTMX o
+         *     endpoints que devuelvan HTML) y dejar el JS solo para interacción.
+         *
+         *  5. LOCALFORAGE -> SQLALCHEMY: loadData() y saveData() usan localforage.
+         *     En Flask reemplazar por modelos y queries SQLite. Revisar todos los
+         *     await saveData() para reemplazarlos por POST/PUT a la API.
+         *
+         *  6. LISTENERS INLINE: Reemplazar los 'onclick="funcion()"' por
+         *     addEventListener en el módulo correspondiente para evitar
+         *     dependencias globales. Sección a revisar: body, modales, FAB.
+         *
+         *  7. DEPENDENCIAS DE CDN (PROHIBIDO USAR CDNs): Bootstrap, Font Awesome,
+         *     html2canvas y jsPDF actualmente se cargan por CDN. Al migrar a
+         *     Capacitor o Flask, NUNCA usar CDNs. Descargar TODAS las librerías y
+         *     alojarlas localmente: static/vendor/ para Flask, assets/ para
+         *     Capacitor. Incluir Bootstrap CSS+JS, Font Awesome CSS, html2canvas,
+         *     jsPDF, localforage y jsPDF desde archivos locales. Si queda una sola
+         *     referencia a CDN, la app no funcionará offline.
+         *
+         *  8. CANVAS Y EDITOR WYSIWYG: Los módulos de flyers (flyer-canvas) y
+         *     notas (contenteditable) dependen de elementos canvas/contenteditable.
+         *     En Flask pueden conservarse como componentes JS independientes.
+         *
+         *  9. BLOQUES MODULARES: Cada marcador '// === BLOQUE MODULAR ... ==='
+         *     indica un corte lógico. Al fragmentar en archivos .js, respetar
+         *     estos límites y compartir el state central.
+         *
+         *  10. ESCAPE HTML/JS: Funciones escapeHtml() y escapeJsString() son
+         *      centrales para seguridad. En Flask usar autoescape de Jinja2 y
+         *      sanitizar inputs, pero conservar validaciones client-side.
+         * =============================================================
+         */
+

@@ -1,0 +1,20 @@
+                            <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                                <h2 class="accordion-header" id="headingFormasPago">
+                                    <button class="accordion-button collapsed fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormasPago" aria-expanded="false" aria-controls="collapseFormasPago">
+                                        Forma de Pago
+                                    </button>
+                                </h2>
+                                <div id="collapseFormasPago" class="accordion-collapse collapse" aria-labelledby="headingFormasPago" data-bs-parent="#accordionExtras">
+                                    <div class="accordion-body p-3">
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="cam-mostrar-formas-pago" checked>
+                                            <label class="form-check-label fw-bold text-muted small" for="cam-mostrar-formas-pago">Incluir formas de pago en WhatsApp</label>
+                                        </div>
+                                        <div id="cam-formas-pago-lista" class="row g-2 text-muted small check-btn-wrapper">
+                                            <!-- Se inyecta por JS -->
+                                        </div>
+                                        <p id="cam-formas-pago-vacio" class="d-none text-muted small mt-2 mb-0 text-center">No hay formas de pago configuradas en Ajustes.</p>
+                                        <p class="text-muted small mt-2 mb-0" style="font-size: 0.7rem;">Si no seleccionás ninguna, no aparece en el mensaje de WhatsApp.</p>
+                                    </div>
+                                </div>
+                            </div>

@@ -1,0 +1,21 @@
+    <div class="modal fade" id="modalOracionTribu" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h5 class="modal-title"><i class="fas fa-praying-hands me-2" style="color: var(--primary-dark)"></i> Oración de la Tribu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0 d-flex flex-column">
+                    <div class="d-flex justify-content-center gap-2 mb-3">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="cambiarTamanioOracion(-0.15)" title="Reducir letra"><i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="cambiarTamanioOracion(0.15)" title="Aumentar letra"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-sm btn-success" style="background-color: var(--primary-dark);" onclick="compartirOracionWhatsApp()" title="Compartir por WhatsApp"><i class="fab fa-whatsapp me-1"></i> Compartir</button>
+                    </div>
+                    <div id="oracion-contenido" class="oracion-texto flex-grow-1 hide-scrollbar" contenteditable="true" oninput="guardarOracionTribu()" style="font-size: 1.25rem; line-height: 1.8; white-space: pre-wrap; overflow-y: auto; padding: 0 1rem; outline: none;"></div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>

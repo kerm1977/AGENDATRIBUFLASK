@@ -1,0 +1,20 @@
+/* AGENDATRIBUPRO - Variables de tema y estilos base
+   Origen: AGENDATRIBUPRO.original.html lineas 143-158
+   Extraido sin cambios de codigo (solo se quito la sangria de 8 espacios).
+   No editar sin actualizar el original. */
+:root {
+    --primary-color: #f97316; /* Naranja Brillante */
+    --primary-dark: #ea580c; /* Naranja Oscuro */
+    --bg-light: #f0f2f5;
+    --text-dark: #111b21;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding-bottom: 70px; /* Space for bottom nav */
+    padding-top: 60px; /* Space for top header */
+    overflow-x: hidden;
+}
+

@@ -1,0 +1,32 @@
+    <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title">Descripción de pago</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <label class="form-label small text-muted">Agrégale una descripción a este pago</label>
+                    <textarea id="pago-descripcion" class="form-control mb-3" rows="3" placeholder="Ej: Pago de la mitad..."></textarea>
+                    <label class="form-label small text-muted">Forma de pago</label>
+                    <select class="form-select mb-3" id="pago-forma">
+                        <option value="SINPE">SINPE</option>
+                        <option value="Efectivo">Efectivo</option>
+                    </select>
+                    <label class="form-label small text-muted">Moneda del pago</label>
+                    <select class="form-select mb-3" id="pago-moneda" onchange="toggleTipoCambio()">
+                        <option value="Colones">Colones</option>
+                        <option value="Dólares">Dólares</option>
+                    </select>
+                    <div id="pago-tipo-cambio-container" class="d-none">
+                        <label class="form-label small text-muted">Tipo de cambio</label>
+                        <input type="number" class="form-control" id="pago-tipo-cambio" inputmode="numeric" placeholder="Ej: 500">
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="confirmarPago()">Guardar pago</button>
+                </div>
+            </div>
+        </div>
+    </div>

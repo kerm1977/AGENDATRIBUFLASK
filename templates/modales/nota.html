@@ -1,0 +1,120 @@
+    <div class="modal fade" id="modalNota" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-content" style="background: #f5f5f5;">
+                <div class="modal-header border-0 py-2" style="background: #ffffff;">
+                    <input type="text" id="nota-titulo" class="form-control border-0 fw-bold" placeholder="Título de la nota" style="font-size: 1.25rem; background: transparent;">
+                    <button type="button" class="btn-close" aria-label="Close" onclick="confirmarCancelarNota()"></button>
+                </div>
+                <div class="modal-body p-0 d-flex flex-column" style="height: calc(100vh - 110px);">
+                    <!-- Toolbar WYSIWYG -->
+                    <div class="d-flex flex-wrap align-items-center gap-1 p-2" style="background: #ffffff; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 10;">
+                        <button type="button" class="btn btn-sm btn-success" onclick="guardarNota()" title="Guardar nota"><i class="fas fa-save"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="exportarNotasJSON()" title="Exportar notas a JSON"><i class="fas fa-file-export"></i></button>
+                        <label class="btn btn-sm btn-light mb-0" title="Importar notas desde JSON" style="cursor: pointer;">
+                            <i class="fas fa-file-import"></i>
+                            <input type="file" accept=".json" style="display: none;" onchange="importarNotasJSON(event)">
+                        </label>
+                        <div class="vr mx-1"></div>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('bold')" title="Negrita"><i class="fas fa-bold"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('italic')" title="Itálica"><i class="fas fa-italic"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('underline')" title="Subrayar"><i class="fas fa-underline"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('strikeThrough')" title="Tachar"><i class="fas fa-strikethrough"></i></button>
+                        <div class="vr mx-1"></div>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="formatNota('justify' + this.value); this.value=''" title="Alineación">
+                            <option value="" selected disabled>≡</option>
+                            <option value="Left">Izquierda</option>
+                            <option value="Center">Centro</option>
+                            <option value="Right">Derecha</option>
+                            <option value="Full">Justificado</option>
+                        </select>
+                        <div class="vr mx-1"></div>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="aplicarFormatoTitulo(this.value); this.value=''" title="Títulos">
+                            <option value="" selected disabled>Título</option>
+                            <option value="H1">H1</option>
+                            <option value="H2">H2</option>
+                            <option value="H3">H3</option>
+                            <option value="H4">H4</option>
+                            <option value="H5">H5</option>
+                            <option value="H6">H6</option>
+                            <option value="P">Párrafo</option>
+                            <option value="HR">Línea divisoria</option>
+                        </select>
+                        <div class="vr mx-1"></div>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('insertUnorderedList')" title="Viñetas"><i class="fas fa-list-ul"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('insertOrderedList')" title="Lista numerada"><i class="fas fa-list-ol"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="convertirSeleccionAChecklist()" title="Checklist"><i class="fas fa-check-square"></i></button>
+                        <div class="vr mx-1"></div>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="transformarTextoNota(this.value); this.value=''" title="Transformar texto">
+                            <option value="" selected disabled>Aa</option>
+                            <option value="uppercase">MAYÚSCULAS</option>
+                            <option value="lowercase">minúsculas</option>
+                            <option value="titlecase">Title Case</option>
+                        </select>
+                        <div class="vr mx-1"></div>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="aplicarInterlineadoNota(this.value); this.value=''" title="Interlineado">
+                            <option value="" selected disabled>Interlineado</option>
+                            <option value="normal">Normal</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.8">0.8</option>
+                            <option value="1.0">1.0</option>
+                            <option value="1.2">1.2</option>
+                            <option value="1.4">1.4</option>
+                            <option value="1.6">1.6</option>
+                            <option value="1.8">1.8</option>
+                            <option value="2.0">2.0</option>
+                            <option value="2.5">2.5</option>
+                            <option value="3.0">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4.0">4.0</option>
+                        </select>
+                        <div class="vr mx-1"></div>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="aplicarEspaciadoLetrasNota(this.value); this.value=''" title="Espaciado de letras">
+                            <option value="" selected disabled>Espaciado</option>
+                            <option value="normal">Normal</option>
+                            <option value="-2px">-2 px</option>
+                            <option value="-1px">-1 px</option>
+                            <option value="1px">+1 px</option>
+                            <option value="2px">+2 px</option>
+                            <option value="3px">+3 px</option>
+                            <option value="4px">+4 px</option>
+                            <option value="5px">+5 px</option>
+                            <option value="6px">+6 px</option>
+                            <option value="7px">+7 px</option>
+                            <option value="8px">+8 px</option>
+                        </select>
+                        <div class="vr mx-1"></div>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('undo')" title="Deshacer"><i class="fas fa-undo"></i></button>
+                        <button type="button" class="btn btn-sm btn-light" onclick="formatNota('redo')" title="Rehacer"><i class="fas fa-redo"></i></button>
+                        <div class="vr mx-1"></div>
+                        <button type="button" class="btn btn-sm btn-light" id="btn-toggle-recordatorio" onclick="toggleRecordatorioNota()" title="Convertir en recordatorio">
+                            <i class="far fa-bell me-1" id="icon-recordatorio"></i> <span id="text-recordatorio">Recordatorio</span>
+                        </button>
+                        <div class="vr mx-1"></div>
+                        <button type="button" class="btn btn-sm btn-success" style="background-color: #25D366; border-color: #25D366;" onclick="compartirNotaWhatsApp()" title="Compartir por WhatsApp">
+                            <i class="fab fa-whatsapp me-1"></i> Compartir
+                        </button>
+                        <!-- NO MODIFICAR: Botón exportar notas a TXT -->
+                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="exportarNotasTXT()" title="Exportar todas las notas a TXT">
+                            <i class="fas fa-file-alt me-1"></i> TXT
+                        </button>
+                        <!-- /NO MODIFICAR: Botón exportar notas a TXT -->
+                    </div>
+                    <!-- Área de escritura tipo hoja -->
+                    <div class="flex-grow-1 p-3" style="overflow-y: auto;">
+                        <div id="nota-contenido" contenteditable="true" class="p-4" style="min-height: 70vh; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-width: 100%; outline: none; font-size: 1rem; line-height: 1.6;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 py-2" style="background: #ffffff;">
+                    <div id="nota-progreso-container" class="d-flex align-items-center gap-2 me-auto" style="display: none !important;">
+                        <div style="width: 120px; height: 6px; background: #e9ecef; border-radius: 3px; overflow: hidden;">
+                            <div id="nota-progreso-barra" style="width: 0%; height: 100%; background: #28a745; transition: width 0.3s;"></div>
+                        </div>
+                        <span id="nota-progreso-texto" class="small text-muted" style="font-size: 0.75rem;">0%</span>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="confirmarCancelarNota()">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="guardarNota()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>

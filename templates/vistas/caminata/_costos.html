@@ -1,0 +1,32 @@
+                            <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                                <h2 class="accordion-header" id="headingCostos">
+                                    <button class="accordion-button collapsed fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCostos" aria-expanded="false" aria-controls="collapseCostos">
+                                        Costos y formas de pago
+                                    </button>
+                                </h2>
+                                <div id="collapseCostos" class="accordion-collapse collapse" aria-labelledby="headingCostos" data-bs-parent="#accordionCaminata">
+                                    <div class="accordion-body p-3">
+
+                        <!-- Costos y Reserva -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold required-field text-muted small">Moneda</label>
+                            <select class="form-select" id="cam-moneda" required>
+                                <option value="₡">Colones (₡)</option>
+                                <option value="$">Dólares ($)</option>
+                            </select>
+                            <small class="text-muted" style="font-size: 0.65rem;">*No visible en lista final de WhatsApp</small>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label fw-bold required-field text-muted small">Precio Total</label>
+                                <div class="input-group">
+                                    <span class="input-group-text currency-symbol">₡</span>
+                                    <input type="number" class="form-control" id="cam-precio" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, ''); actualizarMonedaPorTipoPrecio(); actualizarMontoReserva();">
+                                </div>
+                            </div>
+                        </div>
+
+                                    </div>
+                                </div>
+                            </div>

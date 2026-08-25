@@ -1,0 +1,17 @@
+    <div class="modal fade" id="modalRecordatoriosHoy" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-3 border-3 shadow-lg" style="border-color: var(--primary-dark);">
+                <div class="modal-body pt-2">
+                    <div class="recordatorio-icono mb-3">
+                        <i class="far fa-bell fa-4x text-warning"></i>
+                    </div>
+                    <h5 class="mb-3"><i class="far fa-bell me-2 text-warning"></i>Recordatorio</h5>
+                    <div id="recordatorios-contenido" class="text-start" style="max-height: 40vh; overflow-y: auto;"></div>
+                </div>
+                <div class="modal-footer border-0 justify-content-center gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="verRecordatoriosDespues()">Ver más tarde</button>
+                    <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="descartarRecordatoriosModal()">Descartar</button>
+                </div>
+            </div>
+        </div>
+    </div>

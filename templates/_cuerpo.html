@@ -1,0 +1,138 @@
+
+    <header class="app-header">
+        <h5 class="mb-0 fw-bold" id="app-title">Caminatas de la Tribu de Los Libres</h5>
+    </header>
+
+    <!-- Modal de Oración de la Tribu -->
+    {% include 'modales/oracion-tribu.html' %}
+
+    <!-- Modal de Recordatorios del día (aparece al inicio de toda la interfaz) -->
+    {% include 'modales/recordatorios-hoy.html' %}
+
+    <!-- Contenedor oculto para tarjeta de cuentas (exportar PNG) -->
+    {% include 'parciales/_tarjeta-cuentas.html' %}
+
+    <!-- VIEWS CONTAINER -->
+    <main class="container mt-3">
+        
+        <!-- VIEW: Lista de Caminatas (Home) -->
+        {% include 'vistas/_home.html' %}
+
+        <!-- VIEW: Detalles de Caminata / Formulario de Edición -->
+        {% include 'vistas/_caminata.html' %}
+
+        <!-- VIEW: Directorio Global -->
+        {% include 'vistas/_directorio.html' %}
+
+        <!-- VIEW: Precios de Buseta -->
+        <!-- VIEW: Notas -->
+        {% include 'vistas/_notas.html' %}
+
+        {% include 'vistas/_precios.html' %}
+
+        <!-- VIEW: Configuración / Data Management -->
+        {% include 'vistas/_settings.html' %}
+
+    </main>
+    <!-- === FIN MÓDULO HTML: VISTAS Y MODALES === -->
+
+    <!-- Botón Flotante (Visible principalmente en Home) -->
+    <button class="fab" id="main-fab" onclick="createNewCaminata()">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Banner de Cumpleaños (visible sobre cualquier vista) -->
+    {% include 'parciales/_banner-cumpleanos.html' %}
+
+    <!-- Modal Agregar/Editar Caminante -->
+    {% include 'modales/caminante.html' %}
+
+    <!-- Modal Agregar Múltiples Caminantes -->
+    {% include 'modales/multi-caminantes.html' %}
+
+    <!-- (El directorio global ahora se muestra como vista de pantalla completa: ver #view-directorio) -->
+
+    <!-- Modal Agregar/Editar Directorio -->
+    {% include 'modales/agregar-directorio.html' %}
+
+    <!-- ============================================================ -->
+    <!-- ¡IMPORTANTE! Modal "Ver Contacto" del Directorio Global.       -->
+    <!-- No eliminar ni simplificar: muestra la ficha completa del      -->
+    <!-- contacto (ícono, datos, teléfono con WhatsApp, cumpleaños) y   -->
+    <!-- las listas de caminata a las que pertenece. Aprobado por el    -->
+    <!-- usuario como diseño final; conservar tal cual ante cambios.    -->
+    <!-- ============================================================ -->
+    <!-- Modal Ver Contacto (información completa + listas de caminata) -->
+    {% include 'modales/ver-directorio.html' %}
+
+    <!-- Modal Cotizador -->
+    {% include 'modales/cotizador.html' %}
+
+    <!-- Modal Fusión Manual -->
+    {% include 'modales/fusion-manual.html' %}
+
+    <!-- Modal Buseta -->
+    {% include 'modales/buseta.html' %}
+
+    <!-- Modal Universal de Confirmación -->
+    {% include 'modales/confirm.html' %}
+
+    <!-- Modal Seleccionar Lista de Caminata (Directorio) -->
+    {% include 'modales/seleccionar-caminata.html' %}
+
+    <!-- Modal Historial de Retiros -->
+    {% include 'modales/historial-retiros.html' %}
+
+    <!-- Modal Historial de Participación -->
+    {% include 'modales/historial-participacion.html' %}
+
+    <!-- Modal WhatsApp Preview -->
+    {% include 'modales/whats-app.html' %}
+
+    <!-- Modal Descripción de Pago -->
+    {% include 'modales/pago.html' %}
+
+    <!-- Modal Factura -->
+    {% include 'modales/factura.html' %}
+
+    <!-- Modal Precio de Buseta -->
+    {% include 'modales/precio-buseta.html' %}
+
+    <!-- Modal Reversión de Monto -->
+    {% include 'modales/reversion.html' %}
+
+    <!-- Modal Confirmación Salir -->
+    {% include 'modales/salir.html' %}
+
+    <!-- Modal Editor de Notas -->
+    {% include 'modales/nota.html' %}
+
+    <!-- Modal Fecha de Recordatorio -->
+    {% include 'modales/recordatorio-nota.html' %}
+
+    <!-- Modal Confirmar Cancelar Nota -->
+    {% include 'modales/cancelar-nota.html' %}
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" id="nav-home" onclick="navigate('home'); return false;">
+            <i class="fas fa-list-alt"></i>
+            <span>Listas</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-directorio" onclick="navigate('directorio', configTema.tituloDirectorio || TITULO_DIRECTORIO_DEFECTO); return false;">
+            <i class="fas fa-address-book"></i>
+            <span>Directorio</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-buseta" style="display: none;" onclick="openBusetaModal(); return false;">
+            <i class="fas fa-bus"></i>
+            <span>Buseta</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-notas" onclick="navigate('notas'); return false;">
+            <i class="fas fa-sticky-note"></i>
+            <span>Notas</span>
+        </a>
+        <a href="#" class="nav-item" id="nav-settings" onclick="navigate('settings'); return false;">
+            <i class="fas fa-cog"></i>
+            <span>Ajustes</span>
+        </a>
+    </nav>

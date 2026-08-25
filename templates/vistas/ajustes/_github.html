@@ -1,0 +1,92 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-github">
+                            <i class="fab fa-github text-dark me-2"></i> Configurar GitHub
+                        </button>
+                    </h2>
+                    <div id="acc-github" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Guarda los datos del repositorio remoto de GitHub para el despliegue.</p>
+                            <form id="github-form" onsubmit="event.preventDefault(); guardarConfigGitHub();">
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Nombre del repositorio</label>
+                                    <input type="text" class="form-control form-control-sm" id="gh-repo-name" placeholder="AGENDATRIBUFLASK">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">URL del repositorio</label>
+                                    <input type="text" class="form-control form-control-sm" id="gh-repo-url" placeholder="https://github.com/usuario/AGENDATRIBUFLASK">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Remote origin</label>
+                                    <input type="text" class="form-control form-control-sm" id="gh-remote-origin" placeholder="git@github.com:usuario/AGENDATRIBUFLASK.git">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Rama principal</label>
+                                    <input type="text" class="form-control form-control-sm" id="gh-branch" placeholder="main">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Usuario de GitHub</label>
+                                    <input type="text" class="form-control form-control-sm" id="gh-username" placeholder="usuario">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Token / clave SSH (opcional)</label>
+                                    <input type="password" class="form-control form-control-sm" id="gh-token" placeholder="ghp_...">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Comandos / notas</label>
+                                    <textarea class="form-control form-control-sm" id="gh-instructions" rows="4" placeholder="git init&#10;git add README.md&#10;git commit -m &quot;first commit&quot;&#10;git branch -M main&#10;git remote add origin ...&#10;git push -u origin main"></textarea>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-dark btn-sm">
+                                        <i class="fab fa-github"></i> Guardar configuración
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                async function cargarConfigGitHub() {
+                    try {
+                        const resp = await fetch('/api/github-config');
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        const cfg = await resp.json();
+                        document.getElementById('gh-repo-name').value = cfg.repo_name || '';
+                        document.getElementById('gh-repo-url').value = cfg.repo_url || '';
+                        document.getElementById('gh-remote-origin').value = cfg.remote_origin || '';
+                        document.getElementById('gh-branch').value = cfg.branch || '';
+                        document.getElementById('gh-username').value = cfg.username || '';
+                        document.getElementById('gh-token').value = cfg.token || '';
+                        document.getElementById('gh-instructions').value = cfg.instructions || '';
+                    } catch (err) {
+                        console.error('Error cargando configuración GitHub:', err);
+                    }
+                }
+
+                async function guardarConfigGitHub() {
+                    const cfg = {
+                        repo_name: document.getElementById('gh-repo-name').value.trim(),
+                        repo_url: document.getElementById('gh-repo-url').value.trim(),
+                        remote_origin: document.getElementById('gh-remote-origin').value.trim(),
+                        branch: document.getElementById('gh-branch').value.trim(),
+                        username: document.getElementById('gh-username').value.trim(),
+                        token: document.getElementById('gh-token').value.trim(),
+                        instructions: document.getElementById('gh-instructions').value.trim(),
+                    };
+                    try {
+                        const resp = await fetch('/api/github-config', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(cfg)
+                        });
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        showToast('Configuración de GitHub guardada', 'success');
+                    } catch (err) {
+                        console.error('Error guardando configuración GitHub:', err);
+                        showToast('Error al guardar la configuración', 'danger');
+                    }
+                }
+
+                document.getElementById('acc-github').addEventListener('shown.bs.collapse', cargarConfigGitHub);
+                </script>

@@ -1,0 +1,32 @@
+    <div class="modal fade" id="modalFusionManual" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title"><i class="fas fa-code-merge"></i> Fusión manual</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="small text-muted">Elegí el contacto que está mal (origen) y el que está bien (destino). Todos los datos del origen pasan al destino y el origen se elimina.</p>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-danger">Origen (se borrará)</label>
+                        <select class="form-select form-select-sm" id="fusion-origen" onchange="actualizarVistaFusion()">
+                            <option value="" selected>— Seleccionar contacto —</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-success">Destino (se conserva)</label>
+                        <select class="form-select form-select-sm" id="fusion-destino" onchange="actualizarVistaFusion()">
+                            <option value="" selected>— Seleccionar contacto —</option>
+                        </select>
+                    </div>
+                    <div class="p-2 border rounded bg-light small" id="fusion-vista-previa" style="min-height: 80px;">
+                        Seleccioná los dos contactos para ver la vista previa.
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 justify-content-center gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="ejecutarFusionManual()"><i class="fas fa-code-merge me-1"></i> Fusionar</button>
+                </div>
+            </div>
+        </div>
+    </div>

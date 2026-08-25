@@ -1,0 +1,46 @@
+        <div id="view-settings" class="view-section">
+            <h4 class="mb-4">Configuración y Respaldo</h4>
+
+            <div class="accordion mb-3" id="ajustes-accordion">
+                {% include 'vistas/ajustes/_estadisticas.html' %}
+
+                {% include 'vistas/ajustes/_basedatos.html' %}
+
+                {% include 'vistas/ajustes/_sqlite.html' %}
+
+                {% include 'vistas/ajustes/_respaldo-auto.html' %}
+
+                {% include 'vistas/ajustes/_pythonanywhere.html' %}
+
+                {% include 'vistas/ajustes/_github.html' %}
+
+                {% include 'vistas/ajustes/_precios.html' %}
+
+                {% include 'vistas/ajustes/_notas.html' %}
+
+                {% include 'vistas/ajustes/_historial-retiros.html' %}
+
+                {% include 'vistas/ajustes/_historial-participacion.html' %}
+
+                {% include 'vistas/ajustes/_tema.html' %}
+
+                {% include 'vistas/ajustes/_oracion.html' %}
+
+                {% include 'vistas/ajustes/_pagos.html' %}
+
+                {% include 'vistas/ajustes/_instrucciones.html' %}
+
+                {% include 'vistas/ajustes/_cotizador.html' %}
+
+                {% include 'vistas/ajustes/_cotizaciones-guardadas.html' %}
+
+            </div>
+
+            <div class="card border-0 shadow-sm border-danger">
+                <div class="card-body text-center">
+                    <button class="btn btn-danger" onclick="confirmarBorradoTotal()">
+                        <i class="fas fa-trash-alt"></i> Borrar Todo el Sistema
+                    </button>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,18 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-cotizaciones-guardadas" onclick="renderCotizacionesGuardadas()">
+                            <i class="fas fa-save text-primary me-2"></i> Cotizaciones Guardadas
+                        </button>
+                    </h2>
+                    <div id="acc-cotizaciones-guardadas" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <div id="cotizaciones-lista" class="mb-3">
+                                <!-- Se inyecta por JS -->
+                            </div>
+                            <p id="cotizaciones-vacio" class="text-muted small text-center my-3 d-none">No hay cotizaciones guardadas.</p>
+                            <button class="btn btn-sm w-100" style="background-color: var(--primary-dark); color: white;" onclick="abrirCotizador()">
+                                <i class="fas fa-plus me-1"></i> Nueva cotización
+                            </button>
+                        </div>
+                    </div>
+                </div>

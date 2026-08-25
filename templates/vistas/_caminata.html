@@ -1,0 +1,95 @@
+        <div id="view-caminata" class="view-section">
+            <button class="btn btn-sm btn-outline-secondary mb-3" onclick="navigate('home')">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+            
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center py-3" data-bs-toggle="collapse" data-bs-target="#collapseHeader" style="cursor: pointer;">
+                    <h5 class="card-title text-primary-dark mb-0" id="detail-title">Detalles de la Caminata</h5>
+                    <i class="fas fa-chevron-down text-muted"></i>
+                </div>
+                
+                <!-- Contenedor Colapsable -->
+                <div id="collapseHeader" class="collapse">
+                    <div class="card-body pt-0">
+                        <form id="form-caminata" novalidate>
+                            <input type="hidden" id="caminata-id">
+
+                            <div class="accordion mb-4" id="accordionCaminata">
+
+                            {% include 'vistas/caminata/_info.html' %}
+
+                            {% include 'vistas/caminata/_transporte.html' %}
+
+                            {% include 'vistas/caminata/_costos.html' %}
+
+                            {% include 'vistas/caminata/_dias.html' %}
+
+                        </div>
+
+                        <!-- Extras colapsables -->
+                        <div class="accordion mb-4" id="accordionExtras">
+                            {% include 'vistas/caminata/_incluye.html' %}
+
+                            {% include 'vistas/caminata/_formas-pago.html' %}
+
+                            {% include 'vistas/caminata/_instrucciones.html' %}
+
+                            {% include 'vistas/caminata/_url.html' %}
+                        </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success" style="background-color: var(--primary-dark); border-color: var(--primary-dark);">
+                                    <i class="fas fa-save"></i> Guardar Encabezado
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Caminantes (Solo visible si la caminata está guardada) -->
+            <div id="caminantes-section" class="card border-0 shadow-sm" style="display: none;">
+                <div class="card-body">
+                    <!-- NO MODIFICAR: Header responsivo de caminantes -->
+                    <div class="border-bottom pb-2 mb-3">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
+                            <h5 class="card-title text-primary-dark mb-0">
+                                Caminantes
+                                <span class="badge bg-secondary align-middle" id="caminantes-count">0</span>
+                            </h5>
+                            <div class="form-check form-switch mb-0" style="min-width: 0;">
+                                <input class="form-check-input" type="checkbox" id="cam-mostrar-caminantes" checked>
+                                <label class="form-check-label small text-nowrap" for="cam-mostrar-caminantes">Incluir en WhatsApp</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center gap-4 w-100 mt-2">
+                            <button class="btn btn-primary btn-sm" title="Agregar caminante" onclick="openCaminanteModal()" style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                <i class="fas fa-user-plus fa-lg"></i>
+                            </button>
+                            <button class="btn btn-success btn-sm" title="Agregar varios" onclick="openModalMultiCaminantes()" style="background-color: var(--primary-dark); border-color: var(--primary-dark);">
+                                <i class="fas fa-users fa-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Buscador de caminantes -->
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text bg-white"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" class="form-control" id="search-caminante" placeholder="Buscar por nombre..." onkeyup="filterCaminantes()">
+                    </div>
+
+                    <div id="lista-caminantes" class="mb-3">
+                        <!-- Caminantes list -->
+                    </div>
+                    <div id="resumen-financiero"></div>
+
+                    <div class="accordion mt-3" id="accordionAsistencia">
+                        {% include 'vistas/caminata/_asistencia.html' %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Espacio extra al final para que el FAB no tape contenido -->
+            <div style="height: 60px;"></div> 
+        </div>

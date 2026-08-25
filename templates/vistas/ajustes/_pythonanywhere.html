@@ -1,0 +1,98 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-pythonanywhere">
+                            <i class="fas fa-cloud text-primary me-2"></i> Configurar Python Anywhere
+                        </button>
+                    </h2>
+                    <div id="acc-pythonanywhere" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Guarda la configuración de despliegue en Python Anywhere. La ruta de la base de datos puede ser la misma que usas en el servidor.</p>
+                            <form id="pa-form" onsubmit="event.preventDefault(); guardarConfigPA();">
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Usuario de Python Anywhere</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-username" placeholder="tu_usuario">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Dominio / URL</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-domain" placeholder="tu_usuario.pythonanywhere.com">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">DNS / nombres adicionales</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-dns" placeholder="tudominio.com, www.tudominio.com">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Carpeta del proyecto en Python Anywhere</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-project-dir" placeholder="/home/tu_usuario/AGENDATRIBUPRO">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Ruta de la base de datos SQLite</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-db-path" placeholder="/home/tu_usuario/AGENDATRIBUPRO/tribu.sqlite">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Ruta del archivo WSGI</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-wsgi-path" placeholder="/var/www/tu_usuario_pythonanywhere_com_wsgi.py">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Versión de Python</label>
+                                    <input type="text" class="form-control form-control-sm" id="pa-python-version" placeholder="3.13">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small mb-1">Notas</label>
+                                    <textarea class="form-control form-control-sm" id="pa-notes" rows="2" placeholder="Comandos, paquetes, variables de entorno..."></textarea>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-save"></i> Guardar configuración
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                async function cargarConfigPA() {
+                    try {
+                        const resp = await fetch('/api/deploy-config');
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        const cfg = await resp.json();
+                        document.getElementById('pa-username').value = cfg.pa_username || '';
+                        document.getElementById('pa-domain').value = cfg.pa_domain || '';
+                        document.getElementById('pa-dns').value = cfg.pa_dns || '';
+                        document.getElementById('pa-project-dir').value = cfg.pa_project_dir || '';
+                        document.getElementById('pa-db-path').value = cfg.pa_db_path || '';
+                        document.getElementById('pa-wsgi-path').value = cfg.pa_wsgi_path || '';
+                        document.getElementById('pa-python-version').value = cfg.pa_python_version || '';
+                        document.getElementById('pa-notes').value = cfg.notes || '';
+                    } catch (err) {
+                        console.error('Error cargando configuración PA:', err);
+                    }
+                }
+
+                async function guardarConfigPA() {
+                    const cfg = {
+                        pa_username: document.getElementById('pa-username').value.trim(),
+                        pa_domain: document.getElementById('pa-domain').value.trim(),
+                        pa_dns: document.getElementById('pa-dns').value.trim(),
+                        pa_project_dir: document.getElementById('pa-project-dir').value.trim(),
+                        pa_db_path: document.getElementById('pa-db-path').value.trim(),
+                        pa_wsgi_path: document.getElementById('pa-wsgi-path').value.trim(),
+                        pa_python_version: document.getElementById('pa-python-version').value.trim(),
+                        notes: document.getElementById('pa-notes').value.trim(),
+                    };
+                    try {
+                        const resp = await fetch('/api/deploy-config', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(cfg)
+                        });
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        showToast('Configuración de Python Anywhere guardada', 'success');
+                    } catch (err) {
+                        console.error('Error guardando configuración PA:', err);
+                        showToast('Error al guardar la configuración', 'danger');
+                    }
+                }
+
+                document.getElementById('acc-pythonanywhere').addEventListener('shown.bs.collapse', cargarConfigPA);
+                </script>

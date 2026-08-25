@@ -1,0 +1,115 @@
+    <div class="modal fade" id="modalCotizador" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title"><i class="fas fa-calculator"></i> Cotizador</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Cantidad de personas</label>
+                        <input type="number" class="form-control form-control-sm" id="cot-personas" value="1" min="1" oninput="actualizarResumenCotizador();">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Cantidad de días</label>
+                        <input type="number" class="form-control form-control-sm" id="cot-dias" value="1" min="1" oninput="toggleFechasCotizador(); actualizarResumenCotizador();">
+                    </div>
+                    <div class="mb-3" id="cot-grupo-fecha-unica">
+                        <label class="form-label small text-muted">Fecha del requerimiento</label>
+                        <input type="date" class="form-control form-control-sm" id="cot-fecha-unica" onchange="actualizarResumenCotizador();">
+                    </div>
+                    <div class="row gx-2 d-none" id="cot-grupo-fechas">
+                        <div class="col-6 mb-3">
+                            <label class="form-label small text-muted">Fecha de ingreso</label>
+                            <input type="date" class="form-control form-control-sm" id="cot-fecha-ingreso" onchange="actualizarResumenCotizador();">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label small text-muted">Fecha de salida</label>
+                            <input type="date" class="form-control form-control-sm" id="cot-fecha-salida" onchange="actualizarResumenCotizador();">
+                        </div>
+                    </div>
+
+                    <div class="mb-2 small fw-bold text-muted">Requerimientos</div>
+                    <div class="mb-2">
+                        <select class="form-select form-select-sm" id="cot-tipo-requerimiento" onchange="mostrarCamposRequerimientoCotizador()">
+                            <option value="" selected>— Seleccioná un requerimiento —</option>
+                            <option value="hospedaje">Hospedaje</option>
+                            <option value="lancha">Transporte Marítimo (Lancha)</option>
+                            <option value="terrestre">Transporte Terrestre</option>
+                            <option value="aereo">Transporte Aéreo</option>
+                            <option value="guiado">Transporte Guiado</option>
+                            <option value="nota">Nota / Descripción</option>
+                        </select>
+                    </div>
+
+                    <div id="cot-campos-habitacion" class="d-none">
+                        <div class="row gx-2">
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Sencilla</label>
+                                <input type="number" class="form-control form-control-sm" id="cot-hab-sencilla" value="0" min="0">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Doble</label>
+                                <input type="number" class="form-control form-control-sm" id="cot-hab-doble" value="0" min="0">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Triple</label>
+                                <input type="number" class="form-control form-control-sm" id="cot-hab-triple" value="0" min="0">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Cuádruple</label>
+                                <input type="number" class="form-control form-control-sm" id="cot-hab-cuadruple" value="0" min="0">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Pareja / Matrimonial</label>
+                                <input type="number" class="form-control form-control-sm" id="cot-hab-pareja" value="0" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cot-campos-transporte" class="d-none">
+                        <div class="mb-2">
+                            <label class="form-label small text-muted">Cantidad de personas</label>
+                            <input type="number" class="form-control form-control-sm" id="cot-trans-cantidad" value="1" min="1">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small text-muted">
+                                <i class="fas fa-map-marked-alt me-1"></i>URL de Google Maps
+                            </label>
+                            <input type="text" class="form-control form-control-sm" id="cot-trans-url" placeholder="https://maps.app.goo.gl/...">
+                        </div>
+                    </div>
+
+                    <div id="cot-campos-nota" class="d-none">
+                        <div class="mb-2">
+                            <label class="form-label small text-muted">Nota / Descripción</label>
+                            <textarea class="form-control form-control-sm" id="cot-req-nota" rows="3" placeholder="Indicar detalle del requerimiento"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-sm btn-outline-primary w-100 mb-3" onclick="agregarRequerimientoCotizador()">
+                        <i class="fas fa-plus me-1"></i> Agregar requerimiento
+                    </button>
+
+                    <div id="cot-lista-requerimientos" class="mb-3">
+                        <!-- Se inyecta por JS -->
+                    </div>
+
+                    <div class="border rounded p-2 mb-3" style="background: #fff7ed;">
+                        <div class="small fw-bold text-muted mb-1">Resumen de la cotización</div>
+                        <div id="cot-resumen" class="small text-muted" style="white-space: pre-wrap;">
+                            <!-- Se inyecta por JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 d-flex justify-content-between gap-2 flex-wrap">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="btn btn-warning btn-sm" onclick="guardarCotizacionActual()"><i class="fas fa-save me-1"></i>Guardar</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="descargarTxtCotizador()"><i class="fas fa-file-download me-1"></i>TXT</button>
+                        <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="compartirWhatsAppCotizador()"><i class="fab fa-whatsapp me-1"></i>WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

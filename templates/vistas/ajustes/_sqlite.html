@@ -1,0 +1,58 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-sqlite">
+                            <i class="fas fa-server text-primary me-2"></i> Base de Datos (SQLite)
+                        </button>
+                    </h2>
+                    <div id="acc-sqlite" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Información de la base de datos SQLite del servidor.</p>
+                            <div id="sqlite-info" class="small">
+                                <div class="d-flex justify-content-center py-3">
+                                    <div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm w-100 mt-2" onclick="cargarInfoSQLite()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                async function cargarInfoSQLite() {
+                    const cont = document.getElementById('sqlite-info');
+                    try {
+                        const resp = await fetch('/api/dbinfo');
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        const d = await resp.json();
+                        const counts = d.counts || {};
+                        const caminatas = counts.caminatas || 0;
+                        const directorio = counts.directorio || 0;
+                        const notas = counts.notas || 0;
+                        const precios = counts.precios || 0;
+                        const cotizaciones = counts.cotizaciones || 0;
+                        const retiros = counts.retiros || 0;
+
+                        cont.innerHTML = `
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><span class="fw-bold">Archivo:</span> <code class="small">${d.db_name || '-'}</code></li>
+                                <li class="list-group-item"><span class="fw-bold">Carpeta:</span> <code class="small text-break">${d.db_dir || '-'}</code></li>
+                                <li class="list-group-item"><span class="fw-bold">Ruta completa:</span> <code class="small text-break">${d.db_path || '-'}</code></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Tamaño</span> <span class="badge bg-secondary">${d.size || '-'}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Caminatas</span> <span class="badge bg-primary">${caminatas}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Directorio</span> <span class="badge bg-primary">${directorio}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Notas</span> <span class="badge bg-primary">${notas}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Precios de buseta</span> <span class="badge bg-primary">${precios}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Cotizaciones guardadas</span> <span class="badge bg-primary">${cotizaciones}</span></li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center"><span>Historial de retiros</span> <span class="badge bg-primary">${retiros}</span></li>
+                                <li class="list-group-item"><strong>Tablas:</strong> <code class="small">${(d.tables || []).join(', ')}</code></li>
+                            </ul>
+                        `;
+                    } catch (err) {
+                        cont.innerHTML = `<div class="alert alert-danger py-2 small mb-0">Error al leer SQLite: ${err.message}</div>`;
+                    }
+                }
+
+                document.getElementById('acc-sqlite').addEventListener('shown.bs.collapse', cargarInfoSQLite);
+                </script>

@@ -1,0 +1,114 @@
+/* AGENDATRIBUPRO - Header, navegacion inferior, FAB y vistas
+   Origen: AGENDATRIBUPRO.original.html lineas 159-268
+   Extraido sin cambios de codigo (solo se quito la sangria de 8 espacios).
+   No editar sin actualizar el original. */
+/* Top Header */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-dark);
+    color: white;
+    z-index: 1030;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.app-header h5 {
+    width: 100%;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    padding-bottom: env(safe-area-inset-bottom, 10px);
+    z-index: 1030;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+    text-align: center;
+    color: #667781;
+    text-decoration: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    transition: color 0.2s;
+}
+
+.nav-item i {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
+.nav-item.active {
+    color: var(--primary-dark);
+}
+
+/* Floating Action Button (FAB) */
+.fab {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: none;
+    border: none;
+    z-index: 1020;
+    transition: transform 0.1s;
+}
+
+/* Quitar cualquier halo/sombra de color al tocar botones (evita el
+   efecto de "botón fantasma" detrás de los botones de WhatsApp). */
+.btn:focus,
+.btn:active,
+.btn.focus,
+.btn:focus-visible {
+    box-shadow: none !important;
+}
+.fab:focus,
+.fab:active {
+    box-shadow: none !important;
+}
+
+.fab:active {
+    transform: scale(0.95);
+}
+
+/* Views management */
+.view-section {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.view-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

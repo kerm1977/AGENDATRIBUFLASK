@@ -1,0 +1,20 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-precios">
+                            <i class="fas fa-tags text-primary me-2"></i> Precios de Buseta <span id="ajustes-precios-total" class="text-muted fw-normal ms-1"></span>
+                        </button>
+                    </h2>
+                    <div id="acc-precios" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Administrar la lista de precios de Transavi por provincia y destino.</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="navigate('precios')">
+                                    <i class="fas fa-tags"></i> Abrir Precios
+                                </button>
+                                <button class="btn btn-outline-success" onclick="compartirPreciosWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> Compartir precios por WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>

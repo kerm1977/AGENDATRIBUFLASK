@@ -1,0 +1,29 @@
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acc-basedatos">
+                            <i class="fas fa-database text-primary me-2"></i> Base de Datos (JSON)
+                        </button>
+                    </h2>
+                    <div id="acc-basedatos" class="accordion-collapse collapse" data-bs-parent="#ajustes-accordion">
+                        <div class="accordion-body">
+                            <p class="text-muted small">Exporta toda tu información para respaldarla, o importa un respaldo anterior. Esto sobreescribirá los datos actuales.</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="exportData()">
+                                    <i class="fas fa-file-export"></i> Exportar Respaldo (JSON)
+                                </button>
+                                <button class="btn btn-outline-success" onclick="exportDataWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i> Exportar Respaldo a WhatsApp
+                                </button>
+                                <!-- NO MODIFICAR: Botón exportar respaldo a TXT -->
+                                <button class="btn btn-outline-dark" onclick="exportarRespaldoTXT()">
+                                    <i class="fas fa-file-alt"></i> Exportar Respaldo (TXT)
+                                </button>
+                                <!-- /NO MODIFICAR: Botón exportar respaldo a TXT -->
+                                <label class="btn btn-outline-secondary mb-0">
+                                    <i class="fas fa-file-import"></i> Importar Respaldo
+                                    <input type="file" id="import-file" accept=".json,.txt" style="display: none;" onchange="importData(event)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>

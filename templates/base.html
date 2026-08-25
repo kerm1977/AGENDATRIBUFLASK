@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f97316">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Caminatas de la Tribu de Los Libres</title>
+
+    <!--
+    ╔════════════════════════════════════════════════════════════════════════════════════════════════════╗
+    ║  MAPA DE MÓDULOS Y GUÍA TÉCNICA PARA MIGRACIÓN A CAPACITOR / FLASK                                ║
+    ║                                                                                                   ║
+    ║  Este archivo es un monolito de una sola página. Al migrar a Capacitor (app móvil híbrida) o a  ║
+    ║  Flask (backend web), cada módulo puede extraerse a archivos independientes (.js, .css, .html).  ║
+    ║                                                                                                   ║
+    ║  FRAMEWORKS Y LIBRERÍAS UTILIZADAS:                                                               ║
+    ║  - Bootstrap 5.3.2            (CSS/JS + iconos/Acordeones/Modales/Cards/Badges/Forms)             ║
+    ║  - Font Awesome 6.4.0         (Todos los iconos fa-* usados: fa-user, fa-hiking, fa-check, etc.) ║
+    ║  - LocalForage 1.10.0         (Almacenamiento IndexedDB/LocalStorage)                             ║
+    ║  - html2canvas                (Exportación PNG de tarjetas/facturas/flyers)                       ║
+    ║  - jsPDF                      (Exportación PDF de flyers)                                        ║
+    ║  - Quill-like contenteditable (Editor WYSIWYG de notas)                                          ║
+    ║  - Bootstrap Bundle JS        (Componentes interactivos: modal, accordion, dropdown, etc.)        ║
+    ║                                                                                                   ║
+    ║  TIPOGRAFÍA Y MEDIDAS BASE:                                                                       ║
+    ║  - Fuente: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif   ║
+    ║  - Tamaños: base 1rem; small 0.875rem; textos 0.7rem para subtítulos/etiquetas                    ║
+    ║  - Iconos grandes: 1.5rem a 1.7rem; header app: h5 fw-bold; títulos modales: h6                   ║
+    ║                                                                                                   ║
+    ║  PALETA DE COLORES (mantener exacta):                                                             ║
+    ║  --primary-color: #f97316; --primary-dark: #ea580c; --bg-light: #f0f2f5; --text-dark: #111b21   ║
+    ║                                                                                                   ║
+    ║  ESTRUCTURA GENERAL DE ARCHIVOS:                                                                  ║
+    ║  1. HTML <head>          -> Estáticos globales: meta, CDNs, manifest, favicon.                    ║
+    ║  2. CSS <style>          -> Modulo: estilos-globales.css                                          ║
+    ║  3. HTML <body>          -> Modulo: vistas.html  (fragmentos por sección)                         ║
+    ║  4. JS <script>          -> Módulos listados abajo.                                               ║
+    ║                                                                                                   ║
+    ║  MÓDULOS JAVASCRIPT (dentro del tag <script> principal):                                          ║
+    ║                                                                                                   ║
+    ║  - MÓDULO: constantes-estado       -> let/const globales, config default.                         ║
+    ║  - MÓDULO: inicializacion          -> DOMContentLoaded, listeners iniciales.                      ║
+    ║  - MÓDULO: base-datos              -> loadData, saveData, localforage.                            ║
+    ║  - MÓDULO: utilidades              -> escapeHtml, showToast, confirm, etc.                        ║
+    ║  - MÓDULO: navegacion              -> navigate, view management, FAB.                             ║
+    ║  - MÓDULO: home                    -> renderHome, createNewCaminata, buscador, paginación.        ║
+    ║  - MÓDULO: caminata                -> CRUD caminatas, form header, asistencia.                    ║
+    ║  - MÓDULO: caminantes-pagos        -> inscripciones, pagos, facturas, reversión.                  ║
+    ║  - MÓDULO: buseta-precios          -> transporte, precios de buseta.                              ║
+    ║  - MÓDULO: directorio              -> personas, grupos, cumpleaños, vCard.                        ║
+    ║  - MÓDULO: notas                   -> editor WYSIWYG, checklist, recordatorios.                   ║
+    ║  - MÓDULO: ajustes-tema            -> tema, títulos, grupos, formas de pago.                       ║
+    ║  - MÓDULO: respaldo-import-export  -> JSON, WhatsApp, merge.                                      ║
+    ║  - MÓDULO: oracion-tribu           -> modal de oración.                                           ║
+    ║  - MÓDULO: editor-flyers           -> canvas, export PNG/PDF.                                     ║
+    ║  - MÓDULO: estadisticas            -> contadores, historial permanente, tarjeta de cuentas.       ║
+    ║                                                                                                   ║
+    ║  BASE DE DATOS SQLITE (esquema para Flask o Capacitor con SQLite):                                ║
+    ║  TABLAS Y CAMPOS PRINCIPALES (extraer fielmente del JSON actual):                                 ║
+    ║                                                                                                   ║
+    ║  1. caminatas                                                                                     ║
+    ║     - id (TEXT PK), nombre (TEXT), actividad (TEXT), tipo (TEXT), lugar (TEXT),                   ║
+    ║       provincia (TEXT), pais (TEXT), dificultad (TEXT), km (TEXT), transporte (TEXT),            ║
+    ║       precio (REAL), moneda (TEXT), reserva_monto (REAL), reserva_fecha (TEXT),                   ║
+    ║       fecha_local (TEXT), fecha_ida (TEXT), fecha_regreso (TEXT), hora_salida (TEXT),            ║
+    ║       lugar_salida (TEXT), lugares_recoger (TEXT), etapa (TEXT), parque (TEXT),                  ║
+    ║       usar_buseta (INTEGER), precio_buseta (REAL), cantidad_buses (INTEGER),                     ║
+    ║       cantidad_guias (INTEGER), incluye (TEXT), otros_descripcion (TEXT),                        ║
+    ║       formas_pago (TEXT), mostrar_incluye (INTEGER), mostrar_formas_pago (INTEGER),              ║
+    ║       mostrar_instrucciones (INTEGER), mostrar_urls (INTEGER), mostrar_caminantes (INTEGER),     ║
+    ║       equipo (TEXT), notas_adicionales (TEXT), urls (TEXT), vuelo_numero (TEXT),                 ║
+    ║       vuelo_fecha_salida (TEXT), vuelo_hora_salida (TEXT), vuelo_fecha_regreso (TEXT),           ║
+    ║       vuelo_hora_regreso (TEXT), vuelo_lugar_salida (TEXT), pasajeros (TEXT JSON),               ║
+    ║       created_at, updated_at                                                                      ║
+    ║                                                                                                   ║
+    ║  2. pasajeros (1:N o guardar como JSON dentro de caminatas)                                       ║
+    ║     - id (TEXT PK), caminata_id (FK), nombre (TEXT), cedula (TEXT), telefono (TEXT),             ║
+    ║       correo (TEXT), acompanantes (INTEGER), notas (TEXT), monto (REAL),                         ║
+    ║       estado (TEXT), abono (REAL), pendiente (REAL), asistencia (TEXT),                          ║
+    ║       pago_incluye_buseta (INTEGER), pago_incluye_guia (INTEGER), pago_incluye_otro (TEXT)        ║
+    ║                                                                                                   ║
+    ║  3. directorio_personas                                                                           ║
+    ║     - id (TEXT PK), nombre (TEXT), tipo (TEXT), cedula (TEXT), pasaporte (TEXT),                 ║
+    ║       telefono (TEXT), correo (TEXT), notas (TEXT), pais (TEXT), lugar (TEXT),                   ║
+    ║       fecha_nacimiento (TEXT), tipo_sangre (TEXT), contacto_emergencia_nombre (TEXT),            ║
+    ║       telefono_emergencia (TEXT)                                                                  ║
+    ║                                                                                                   ║
+    ║  4. notas                                                                                         ║
+    ║     - id (TEXT PK), titulo (TEXT), contenido (TEXT), recordatorio_fecha (TEXT),                  ║
+    ║       recordatorio_completado (INTEGER), created_at (TEXT)                                        ║
+    ║                                                                                                   ║
+    ║  5. precios_buseta                                                                                ║
+    ║     - id (TEXT PK), tipo (TEXT), provincia (TEXT), nombre (TEXT), monto (REAL)                   ║
+    ║                                                                                                   ║
+    ║  6. historial_retiros                                                                             ║
+    ║     - id INTEGER PK AUTOINCREMENT, nombre (TEXT), cam_id (TEXT FK), cam_nombre (TEXT),           ║
+    ║       fecha (TEXT)                                                                                ║
+    ║                                                                                                   ║
+    ║  7. historial_asistencia (nuevo - persistencia al eliminar caminatas)                            ║
+    ║     - id INTEGER PK AUTOINCREMENT, nombre (TEXT), cam_id (TEXT), cam_nombre (TEXT),              ║
+    ║       cam_actividad (TEXT), cam_lugar (TEXT), cam_pais (TEXT), cam_dificultad (TEXT),            ║
+    ║       cam_km (TEXT), cam_transporte (TEXT), cam_precio (REAL), cam_formas_pago (TEXT),           ║
+    ║       asistencia (TEXT), fecha (TEXT), fecha_registro (TEXT)                                      ║
+    ║                                                                                                   ║
+    ║  8. config_tema                                                                                   ║
+    ║     - id INTEGER PK, titulo_app (TEXT), titulo_directorio (TEXT), tema_color (TEXT),             ║
+    ║       grupos_personalizados (TEXT), formas_pago_sinpe (TEXT JSON),                               ║
+    ║       formas_pago_cuentas (TEXT JSON), equipo_requerido (TEXT JSON),                             ║
+    ║       instrucciones_otras (TEXT JSON), instrucciones_normas (TEXT JSON),                         ║
+    ║       instrucciones_seguridad (TEXT JSON)                                                         ║
+    ║                                                                                                   ║
+    ║  9. consecutivo_factura / ultimo_respaldo (tablas auxiliares de 1 registro)                       ║
+    ║                                                                                                   ║
+    ║  ÍCONOS FONT AWESOME PRINCIPALES (conservar nombres de clases):                                   ║
+    ║  fa-hiking, fa-users, fa-tag, fa-bus, fa-calendar-alt, fa-check-circle, fa-user-check,           ║
+    ║  fa-user-times, fa-user-minus, fa-credit-card, fa-mobile-alt, fa-university, fa-whatsapp,        ║
+    ║  fa-search, fa-trash, fa-pen, fa-plus, fa-chart-bar, fa-chart-pie, fa-database, fa-file-export,  ║
+    ║  fa-address-card, fa-info-circle, fa-chevron-right, fa-chevron-left, fa-chevron-down,            ║
+    ║  fa-hotel, fa-utensils, fa-bed, fa-tree, fa-map-signs, fa-ship, fa-tractor, fa-praying-hands    ║
+    ║                                                                                                   ║
+    ║  REGLAS DE EXTRACCIÓN:                                                                            ║
+    ║  - Mantener las variables compartidas (caminatas, directorioPersonas, etc.) en state.js.         ║
+    ║  - Cada módulo exporta funciones; main.js importa y expone en window.                             ║
+    ║  - Los event listeners onclic en HTML requieren funciones globales asignadas a window.            ║
+    ║  - Las referencias a elementos HTML (getElementById) no cambian; verificar IDs.                   ║
+    ║  - Los modales de Bootstrap se inicializan en main.js; no mover a módulos.                        ║
+    ║  - Localforage config debe ejecutarse una sola vez antes de loadData.                             ║
+    ║  - Al migrar a Flask: replicar mismos estilos CSS, misma estructura de modales, misma fuente.     ║
+    ║  - Al migrar a Capacitor: replicar vistas, almacenar SQLite nativo, conservar colores/tipografía. ║
+    ╚════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    -->
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/all.min.css') }}">
+    <!-- LocalForage for IndexedDB -->
+    <script src="{{ url_for('static', filename='vendor/js/localforage.min.js') }}"></script>
+
+    <!-- Modulos CSS locales -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/01-variables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/02-layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/03-tema.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/04-componentes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/05-editor.css') }}">
+
+    <!-- === FIN MÓDULO CSS: ESTILOS GLOBALES === -->
+</head>
+<body>
+
+{% block body %}
+{% include '_cuerpo.html' %}
+{% endblock %}
+
+{% block scripts %}
+    <!-- Librerías JS locales (sin CDNs) -->
+    <script src="{{ url_for('static', filename='vendor/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/js/html2canvas.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/js/jspdf.umd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/js/pdf.min.js') }}"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "{{ url_for('static', filename='vendor/js/pdf.worker.min.js') }}";
+    </script>
+
+    <!-- Modulos JS de la app (orden de carga importante) -->
+    <script src="{{ url_for('static', filename='js/00-estado.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/01-datos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/02-navegacion.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/04-01-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/04-02-renderMembreteCotizador.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/04-03-actualizarResumenCotizador.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/04-04-compartirCotizacionGuardada.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/03-utilidades.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-01-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-02-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-03-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-04-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-05-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-06-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-07-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-08-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-09-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-10-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-11-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-12-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-13-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-14-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-15-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-16-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-17-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-18-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/05-19-updateTotalDineroCaminata.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-01-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-02-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-03-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-04-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-05-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-06-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-07-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-08-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-09-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-10-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-11-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-12-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-13-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-14-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-15-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-16-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-17-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-18-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-19-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-20-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-21-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-22-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-23-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-24-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-25-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-26-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-27-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-28-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-29-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-01-modulo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-02-crearCasillaChecklist.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-03-manejarClickNota.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-04-initFlyerEditor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-05-guardarBorradorNota.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/07-06-importarNotasJSON.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/06-30-ejecutarFusionManual.js') }}"></script>    <script src="{{ url_for('static', filename='js/99-inicio.js') }}"></script>
+
+    <!-- Registro del Service Worker para PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('{{ url_for('static', filename='sw.js') }}')
+                .then(function(reg) { console.log('SW registrado:', reg.scope); })
+                .catch(function(err) { console.error('SW error:', err); });
+        }
+    </script>
+{% endblock %}
+</body>
+</html>

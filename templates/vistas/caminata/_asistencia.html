@@ -1,0 +1,20 @@
+                        <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                            <h2 class="accordion-header" id="headingAsistencia">
+                                <button class="accordion-button collapsed fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAsistencia" aria-expanded="false" aria-controls="collapseAsistencia">
+                                    Asistencia
+                                </button>
+                            </h2>
+                            <div id="collapseAsistencia" class="accordion-collapse collapse" aria-labelledby="headingAsistencia" data-bs-parent="#accordionAsistencia">
+                                <div class="accordion-body p-3">
+                                    <div id="lista-asistencia-caminantes" class="mb-2">
+                                        <p class="text-muted small text-center my-3">No hay caminantes en la lista.</p>
+                                    </div>
+                                    <div id="resumen-asistencia" class="d-none"></div>
+                                    <div class="d-grid mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="limpiarAsistencia()">
+                                            <i class="fas fa-eraser me-1"></i> Limpiar selección de asistencia
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

@@ -1,0 +1,113 @@
+                            <div class="accordion-item border rounded-4 bg-white shadow-sm mb-3 overflow-hidden">
+                                <h2 class="accordion-header" id="headingTransporte">
+                                    <button class="accordion-button collapsed fw-bold text-warning-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTransporte" aria-expanded="false" aria-controls="collapseTransporte">
+                                        Información de transporte
+                                    </button>
+                                </h2>
+                                <div id="collapseTransporte" class="accordion-collapse collapse" aria-labelledby="headingTransporte" data-bs-parent="#accordionCaminata">
+                                    <div class="accordion-body p-3">
+
+                            <div class="mb-3 d-none" id="cam-modo-transporte-container">
+                                <label class="form-label fw-bold text-muted small">Modo de transporte</label>
+                                <select class="form-select" id="cam-modo-transporte" onchange="togglePaisCaminata()">
+                                    <option value="Terrestre" selected>Terrestre</option>
+                                    <option value="Aéreo">Aéreo</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3 d-none" id="cam-aerolinea-container">
+                                <div class="mb-3" id="cam-aerolinea-wrapper">
+                                    <label class="form-label fw-bold required-field text-muted small">Aerolínea</label>
+                                    <select class="form-select" id="cam-aerolinea">
+                                        <option value="">Seleccioná una aerolínea</option>
+                                        <option value="Avianca">Avianca</option>
+                                        <option value="Copa Airlines">Copa Airlines</option>
+                                        <option value="LATAM Airlines">LATAM Airlines</option>
+                                        <option value="American Airlines">American Airlines</option>
+                                        <option value="United Airlines">United Airlines</option>
+                                        <option value="Delta Air Lines">Delta Air Lines</option>
+                                        <option value="Iberia">Iberia</option>
+                                        <option value="Aeroméxico">Aeroméxico</option>
+                                        <option value="Volaris">Volaris</option>
+                                        <option value="Spirit Airlines">Spirit Airlines</option>
+                                        <option value="JetBlue Airways">JetBlue Airways</option>
+                                        <option value="Air Europa">Air Europa</option>
+                                        <option value="Frontier Airlines">Frontier Airlines</option>
+                                        <option value="Wingo">Wingo</option>
+                                        <option value="Otra">Otra</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="cam-tiene-vuelo" onchange="toggleDetallesVuelo()">
+                                    <label class="form-check-label" for="cam-tiene-vuelo">Tiene número de vuelo</label>
+                                </div>
+
+                                <div id="cam-numero-vuelo-container" class="d-none">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-muted small" for="cam-numero-vuelo">Número de vuelo</label>
+                                        <input type="text" class="form-control" id="cam-numero-vuelo" placeholder="Ej: AV123">
+                                    </div>
+                                </div>
+
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="cam-tiene-fecha-vuelo" onchange="toggleDetallesVuelo()">
+                                    <label class="form-check-label" for="cam-tiene-fecha-vuelo">Tiene fecha y hora del vuelo</label>
+                                </div>
+
+                                <div id="cam-fechas-vuelo-container" class="d-none">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-muted small">Fecha de salida</label>
+                                            <input type="date" class="form-control" id="cam-vuelo-fecha-salida">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-muted small">Hora de salida</label>
+                                            <input type="time" class="form-control" id="cam-vuelo-hora-salida">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-muted small">Fecha de regreso</label>
+                                            <input type="date" class="form-control" id="cam-vuelo-fecha-regreso">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-muted small">Hora de regreso</label>
+                                            <input type="time" class="form-control" id="cam-vuelo-hora-regreso">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="cam-tiene-lugar-salida" onchange="toggleLugarSalidaAeropuerto()">
+                                    <label class="form-check-label" for="cam-tiene-lugar-salida">Tiene lugar de salida para el aeropuerto</label>
+                                </div>
+
+                                <hr>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="cam-incluir-vuelo-whatsapp">
+                                    <label class="form-check-label" for="cam-incluir-vuelo-whatsapp">Incluir información del vuelo en el encabezado de WhatsApp</label>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3" id="buseta-mini-form">
+                                <div class="col-6">
+                                    <label class="form-label fw-bold required-field text-muted small">Precio de la Buseta</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text currency-symbol">₡</span>
+                                        <input type="number" class="form-control" id="cam-precio-buseta" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Precio por buseta">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-bold required-field text-muted small">Cantidad de Busetas</label>
+                                    <select class="form-select" id="cam-cantidad-busetas" required>
+                                        <option value="1" selected>1 Buseta</option>
+                                        <option value="2">2 Busetas</option>
+                                        <option value="3">3 Busetas</option>
+                                        <option value="4">4 Busetas</option>
+                                        <option value="5">5 Busetas</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                                    </div>
+                                </div>
+                            </div>

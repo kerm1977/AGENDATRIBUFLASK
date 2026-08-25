@@ -1,0 +1,33 @@
+        <div id="view-directorio" class="view-section">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h4 class="mb-0" id="titulo-view-directorio">Directorio Global <button type="button" class="btn btn-light btn-sm ms-1" disabled id="directorio-total">0 usuarios</button></h4>
+                <button type="button" class="btn btn-primary btn-sm" style="background-color: var(--primary-dark);" onclick="openAgregarDirectorioModal()" title="Agregar contacto"><i class="fas fa-plus"></i> Agregar contacto</button>
+            </div>
+            <div class="mb-3" style="position: relative;">
+                <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #aaa; z-index: 2;"><i class="fas fa-search"></i></span>
+                <input type="text" id="search-directorio" placeholder="Buscar por nombre, teléfono, grupo, país, provincia, correo, cumpleaños, tipo de sangre, contacto de emergencia, notas..." onkeyup="filterDirectorio()" style="width: 100%; padding: 12px 16px 12px 40px; border: 1px solid #dbdbdb; border-radius: 290486px; box-shadow: inset 0 0.0625em 0.125em rgba(10,10,10,.05); font-size: 1rem; outline: none; transition: all .3s;">
+            </div>
+            <div id="lista-directorio" class="list-group list-group-directorio mb-3">
+                <!-- Checkboxes inyectados aquí -->
+            </div>
+            <div id="directorio-agregar-lista-bar" class="d-flex justify-content-between align-items-center mb-3" style="display: none !important;">
+                <span class="small fw-bold text-muted" id="directorio-count">0 seleccionados</span>
+                <button type="button" id="btn-agregar-desde-directorio" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="agregarDesdeDirectorio()" title="Agregar a la lista"><i class="fas fa-user-plus"></i> Agregar a la lista</button>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-3">
+                <button type="button" class="btn btn-warning btn-sm" onclick="buscarSimilitudesDuplicados()" title="Buscar similitudes y duplicados"><i class="fas fa-code-branch"></i></button>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="exportarDirectorioJSON()" title="Exportar directorio"><i class="fas fa-file-export"></i></button>
+                <button type="button" class="btn btn-sm" style="background-color: var(--primary-dark); border-color: var(--primary-dark); color: #fff;" onclick="compartirDirectorioWhatsApp()" title="Respaldo del directorio completo por WhatsApp"><i class="fab fa-whatsapp"></i> Respaldo</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" onclick="exportarDirectorioVCard()" title="Respaldo VCard (.vcf) para importar en contactos del teléfono"><i class="fas fa-address-book"></i> VCard</button>
+                <!-- NO MODIFICAR: Botón exportar directorio a TXT -->
+                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="exportarDirectorioTXT()" title="Exportar directorio a TXT"><i class="fas fa-file-alt"></i> TXT</button>
+                <!-- /NO MODIFICAR: Botón exportar directorio a TXT -->
+                <button type="button" class="btn btn-outline-info btn-sm" onclick="openFusionManualModal()" title="Fusionar contactos manualmente"><i class="fas fa-code-merge"></i> Fusionar</button>
+                <label class="btn btn-outline-secondary btn-sm mb-0" title="Importar directorio" style="cursor: pointer;">
+                    <i class="fas fa-file-import"></i>
+                    <input type="file" accept=".json" style="display: none;" onchange="importarDirectorioJSON(event)">
+                </label>
+            </div>
+            <div style="height: 80px;"></div>
+        </div>

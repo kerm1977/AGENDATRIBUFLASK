@@ -1,0 +1,28 @@
+    <div class="modal fade" id="modalVerDirectorio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0 pb-2">
+                    <h6 class="modal-title"><i class="fas fa-address-card"></i> Información del contacto</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0" id="ver-directorio-contenido">
+                    <!-- Contenido inyectado por JS -->
+                </div>
+                <div class="modal-footer border-0 pt-0 d-flex justify-content-between gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="editarDesdeVerDirectorio()"><i class="fas fa-pen"></i> Editar</button>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-expanded="false" title="Más opciones">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); exportarVerContactoWhatsApp();"><i class="fab fa-whatsapp text-success me-2"></i>Exportar a WhatsApp</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); exportarVerContactoPNG();"><i class="fas fa-image text-primary me-2"></i>Exportar a PNG</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

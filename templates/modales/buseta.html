@@ -1,0 +1,54 @@
+    <div class="modal fade" id="modalBuseta" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-bus"></i> Datos de la Buseta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="cam-usar-buseta" onchange="toggleBusetaSection(this)" checked>
+                        <label class="form-check-label" for="cam-usar-buseta">Usar buseta</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-muted small">Total de Transporte</label>
+                        <div class="form-control-plaintext p-2 fw-bold border rounded bg-light" id="cam-total-transporte">₡0</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-bold text-muted small">Cantidad de Participantes</label>
+                            <div class="form-control-plaintext p-2 fw-bold border rounded bg-light" id="cam-cantidad-participantes">0</div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold text-muted small">Total de Personas que Pagan</label>
+                            <div class="form-control-plaintext p-2 fw-bold border rounded bg-light" id="cam-total-personas-pagan">0</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold required-field text-muted small">Cantidad de Guías</label>
+                        <input type="number" class="form-control" id="cam-cantidad-guias" required inputmode="numeric" min="0" value="2" placeholder="Ej: 2">
+                    </div>
+
+                    <div class="mb-3">
+                        <hr class="border-danger border-2 opacity-75">
+                        <label class="form-label fw-bold text-muted small">Total de dinero a recoger por la caminata general</label>
+                        <div class="form-control-plaintext p-2 fw-bold border rounded bg-light" id="cam-total-dinero-caminata">₡0</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-muted small">Total libre de caminata</label>
+                        <p class="text-muted small mb-1" style="font-size: 0.7rem;">Esto es lo que queda libre tanto para ganancia o para asumir otros gastos como entradas a parques nacionales, permisos de finca, etcétera.</p>
+                        <div class="form-control-plaintext p-2 fw-bold border rounded bg-light" id="cam-total-libre-caminata">₡0</div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success btn-sm" style="background-color: var(--primary-dark);" onclick="saveBuseta()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
